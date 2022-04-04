@@ -1,7 +1,7 @@
 🚀 PAIK-APP
 
 ### Demo
-<a href="https://xee.netlify.app">https://xee.netlify.app</a>
+<a href="https://xee.netlify.app">xee.netlify.app</a>
 
 ## Project setup
 ```
