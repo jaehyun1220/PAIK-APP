@@ -7,9 +7,9 @@ export default new VueRouter({
 	mode:'history',
     routes: [
     {
-        path: '/', 
-        // redirect: '/home' 
-    }, {
+        path: '/home', 
+    },
+    {
         path: '/home',
         component: () => import('../Home.vue'),
     },
