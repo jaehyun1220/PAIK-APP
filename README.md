@@ -1,4 +1,4 @@
-🚀# PAIK-APP
+🚀 PAIK-APP
 
 ### Demo
 <a href="https://https://xee.netlify.app" :target="_blank">https://xee.netlify.app/</a>
