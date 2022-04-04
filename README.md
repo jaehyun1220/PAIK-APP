@@ -1,5 +1,10 @@
 🚀# PAIK-APP
 
+### Demo
+```
+https://xee.netlify.app/
+```
+
 ## Project setup
 ```
 npm install
