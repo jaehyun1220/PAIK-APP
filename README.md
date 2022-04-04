@@ -1,4 +1,4 @@
-# PAIK-APP
+🚀# PAIK-APP
 
 ## Project setup
 ```
