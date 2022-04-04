@@ -35,7 +35,7 @@ export default {
   },
   methods : {
     LoginEvent() {
-      this.login = !this.login
+      this.login = false
     },
     LoginEventAuto() {
       this.login = !this.login
