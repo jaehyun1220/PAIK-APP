@@ -16,7 +16,7 @@
 
 <script>
     export default {
-        name:'order_',
+        name:'order',
         data() {
             return {
                 menuSelect : ['커피','음료','빽스치노','주스/에이드','스무디/쉐이크','차','디저트','블랙펄']

@@ -23,7 +23,7 @@ import { Hooper, Slide } from 'hooper';
 import 'hooper/dist/hooper.css';
 
 export default {
-    name: 'App',
+    name: 'slide',
     components: {
         Hooper,
         Slide
