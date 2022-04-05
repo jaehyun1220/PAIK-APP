@@ -3,7 +3,7 @@
         <slide/>
         <div class="home_wrap">
             <div class="home_menu">
-                <h2>고객님asd을 위한 추천 메뉴</h2>
+                <h2>고객님을 위한 추천 메뉴</h2>
                 <ul>
                     <li>
                         <img src="../../assets/image/coffee_01.png" alt="coffee">
