@@ -1,31 +1,31 @@
 <template>
   <div id="app">
     <div class="login_container" v-if="login">
-      <header_/>
-      <section_/>
-      <footer_/>
+      <Header_/>
+      <Section_/>
+      <Footer_/>
       <img src="./assets/image/visual.jpg" alt="visual" class="visual">
     </div>
     <div class="logout_container" v-else>
-      <login_ v-on:loginEvent="LoginEvent" v-on:loginEventAuto="LoginEventAuto"></login_>
+      <Login_ v-on:loginEvent="LoginEvent" v-on:loginEventAuto="LoginEventAuto"></Login_>
     </div>
   </div>
 </template>
 
 <script>
 import 'boxicons'
-import header_ from './components/header.vue'
-import section_ from './components/section.vue'
-import footer_ from './components/footer.vue'
-import login_ from './components/login.vue'
+import Header_ from './components/header.vue'
+import Section_ from './components/section.vue'
+import Footer_ from './components/footer.vue'
+import Login_ from './components/login.vue'
 
 export default {
   name: 'App',
   components: {
-    header_,
-    section_,
-    footer_,
-    login_,
+    Header_,
+    Section_,
+    Footer_,
+    Login_,
   },
   data() {
     return {
