@@ -7,8 +7,5 @@
 <script>
     export default {
         name: 'section_',
-        components: {
-            // main_,
-        },
     }
 </script>
