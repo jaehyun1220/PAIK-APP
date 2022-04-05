@@ -6,31 +6,31 @@
                 <h2>고객님을 위한 추천 메뉴</h2>
                 <ul>
                     <li>
-                        <img src="../assets/image/coffee_01.png" alt="coffee">
+                        <img src="../../assets/image/coffee_01.png" alt="coffee">
                         <span>원조커피(ICED)</span>
                     </li>
                     <li>
-                        <img src="../assets/image/coffee_02.png" alt="coffee">
+                        <img src="../../assets/image/coffee_02.png" alt="coffee">
                         <span>앗!메리카노(ICED)</span>
                     </li>
                     <li>
-                        <img src="../assets/image/coffee_03.png" alt="coffee">
+                        <img src="../../assets/image/coffee_03.png" alt="coffee">
                         <span>앗!메리카노(HOT)</span>
                     </li>
                     <li>
-                        <img src="../assets/image/coffee_04.png" alt="coffee">
+                        <img src="../../assets/image/coffee_04.png" alt="coffee">
                         <span>달달연유라떼(ICED)</span>
                     </li>
                     <li>
-                        <img src="../assets/image/coffee_05.png" alt="coffee">
+                        <img src="../../assets/image/coffee_05.png" alt="coffee">
                         <span>호떡라떼(HOT)</span>
                     </li>
                     <li>
-                        <img src="../assets/image/coffee_06.png" alt="coffee">
+                        <img src="../../assets/image/coffee_06.png" alt="coffee">
                         <span>호떡라떼(ICED)</span>
                     </li>
                     <li>
-                        <img src="../assets/image/coffee_07.png" alt="coffee">
+                        <img src="../../assets/image/coffee_07.png" alt="coffee">
                         <span>콤부차(라즈베리)</span>
                     </li>
                 </ul>
@@ -38,21 +38,21 @@
             <div class="home_event">
                 <ul>
                     <li>
-                        <img src="../assets/image/sub_menu_01.png" alt="">
+                        <img src="../../assets/image/sub_menu_01.png" alt="">
                         <span>기프트샵</span>
                     </li>
                     <li>
                         <a href="./order">
-                            <img src="../assets/image/sub_menu_02.png" alt="">
+                            <img src="../../assets/image/sub_menu_02.png" alt="">
                             <span>스마트오더</span>
                         </a>
                     </li>
                     <li v-on:click="alertMessage">
-                        <img src="../assets/image/sub_menu_03.png" alt="">
+                        <img src="../../assets/image/sub_menu_03.png" alt="">
                         <span>이벤트</span>
                     </li>
                     <li v-on:click="alertMessage">
-                        <img src="../assets/image/sub_menu_04.png" alt="">
+                        <img src="../../assets/image/sub_menu_04.png" alt="">
                         <span>배달오더</span>
                     </li>
                 </ul>
@@ -138,7 +138,7 @@ export default {
             .home_event > ul > li img {padding:0 8px;}
             .home_event > ul > li span {font-size: .8em;}
 
-            .home_notice {height: 40px; overflow:hidden; background: url('../assets/image/notice.png')no-repeat 2.5%; margin:6px; overflow-y: hidden; background-color: #fff; border-radius: 10px; box-shadow:0px 5px 15px rgba(0, 0, 0, .05);}
+            .home_notice {height: 40px; overflow:hidden; background: url('../../assets/image/notice.png')no-repeat 2.5%; margin:6px; overflow-y: hidden; background-color: #fff; border-radius: 10px; box-shadow:0px 5px 15px rgba(0, 0, 0, .05);}
                 .notice_wrap {overflow: hidden; transition: all .3s;}
                     .notice_wrap.move { transform: translateY(-40px); transition: all .3s;}
                     .notice_wrap.move2 { transform: translateY(-80px); transition: all .3s;}

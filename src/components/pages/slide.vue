@@ -1,19 +1,19 @@
 <template>
     <hooper id="hooper" :infiniteScroll="true" :autoPlay="true" :playSpeed="2000">
         <slide>
-            <img src="../assets/image/slide_01.jpg" alt="slide">
+            <img src="../../assets/image/slide_01.jpg" alt="slide">
         </slide>
         <slide>
-            <img src="../assets/image/slide_02.jpg" alt="slide">
+            <img src="../../assets/image/slide_02.jpg" alt="slide">
         </slide>
         <slide>
-            <img src="../assets/image/slide_03.jpg" alt="slide">
+            <img src="../../assets/image/slide_03.jpg" alt="slide">
         </slide>
         <slide>
-            <img src="../assets/image/slide_04.jpg" alt="slide">
+            <img src="../../assets/image/slide_04.jpg" alt="slide">
         </slide>
         <slide>
-            <img src="../assets/image/slide_05.jpg" alt="slide">
+            <img src="../../assets/image/slide_05.jpg" alt="slide">
         </slide>
     </hooper>
 </template>

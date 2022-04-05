@@ -1,11 +1,26 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from './components/router/index.js';
-
-// import main_ from './pages/main.vue';
-// import order_ from './pages/order.vue';
+import VueRouter from 'vue-router';
+import { mainPage, orderPage } from './components/pages'
 
 Vue.config.productionTip = false
+Vue.use(VueRouter);
+const routes = [
+  {
+    path : '/',
+    component: mainPage
+  },
+  {
+
+    path : '/order',
+    component: orderPage
+  }
+]
+
+const router = new VueRouter({
+  mode:'history',
+  routes
+});
 
 new Vue({
   render: h => h(App),
