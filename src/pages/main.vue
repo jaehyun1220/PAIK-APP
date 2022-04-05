@@ -42,8 +42,10 @@
                         <span>기프트샵</span>
                     </li>
                     <li>
-                        <img src="../assets/image/sub_menu_02.png" alt="">
-                        <span>스마트오더</span>
+                        <a href="./order">
+                            <img src="../assets/image/sub_menu_02.png" alt="">
+                            <span>스마트오더</span>
+                        </a>
                     </li>
                     <li v-on:click="alertMessage">
                         <img src="../assets/image/sub_menu_03.png" alt="">
@@ -72,7 +74,7 @@ import slide from './slide.vue'
 let idx = 0;
 const currentNotice = document.getElementsByClassName('notice_wrap');
 export default {
-    name: 'Home',
+    name: 'main_',
     components : {
         slide,
     },
@@ -133,8 +135,8 @@ export default {
 
             .home_event > ul {display: flex; justify-content: center; flex-wrap: wrap;}
             .home_event > ul > li {padding: 12px; background-color: #fff; border-radius: 10px; margin: 6px; box-shadow: 0px 5px 15px rgba(0, 0, 0, .05); height: 50px; flex: 1 1 40%; display: flex; justify-content: flex-start; align-items: center;}
-            .home_event > ul > li > img {padding:0 8px;}
-            .home_event > ul > li > span {font-size: .8em;}
+            .home_event > ul > li img {padding:0 8px;}
+            .home_event > ul > li span {font-size: .8em;}
 
             .home_notice {height: 40px; overflow:hidden; background: url('../assets/image/notice.png')no-repeat 2.5%; margin:6px; overflow-y: hidden; background-color: #fff; border-radius: 10px; box-shadow:0px 5px 15px rgba(0, 0, 0, .05);}
                 .notice_wrap {overflow: hidden; transition: all .3s;}

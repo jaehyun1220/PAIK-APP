@@ -2,7 +2,7 @@
   <div class="header">
     <div class="header_wrap">
       <box-icon name='menu-alt-left' color="#071F60" v-on:click="open"></box-icon>
-        <a href="/src/App.vue">
+        <a href="/">
           <img src="../assets/image/logo.png" alt="logo">
         </a>
       <box-icon name='bell' type='solid' color="#071F60"></box-icon>
@@ -24,7 +24,7 @@
           <div class="menu_coupon">
             <ul>
               <li>
-                <router-link to="./Home.vue">
+                <router-link to="./section">
                   <img src="../assets/image/menu_01.png" alt="stamp">
                   <div class="coupon_txt">
                     <p>스탬프</p>
@@ -33,7 +33,7 @@
                 </router-link>
               </li>
               <li>
-                <router-link to="./Home.vue">
+                <router-link to="./section">
                   <img src="../assets/image/menu_02.png" alt="coupon">
                   <div class="coupon_txt">
                     <p>마이쿠폰</p>
@@ -46,25 +46,25 @@
           <div class="menu_list">
             <ul>
               <li>
-                <router-link to="./Home.vue">
+                <router-link to="./section">
                   <span>스마트오더 주문내역</span>
                   <box-icon name='chevron-right' color="#7d7d7d"></box-icon>
                 </router-link>
               </li>
               <li>
-                <router-link to="./Home.vue">
+                <router-link to="./section">
                   <span>주변매장 찾기</span>
                   <box-icon name='chevron-right' color="#7d7d7d"></box-icon>
                 </router-link>
               </li>
               <li>
-                <router-link to="./Home.vue">
+                <router-link to="./section">
                   <span>기프트샵</span>
                   <box-icon name='chevron-right' color="#7d7d7d"></box-icon>
                 </router-link>
               </li>
               <li>
-                <router-link to="./Home.vue">
+                <router-link to="./section">
                   <span>개인정보 변경</span>
                   <box-icon name='chevron-right' color="#7d7d7d"></box-icon>
                 </router-link>
@@ -80,7 +80,7 @@
 
 <script>
 export default {
-  name: 'Header',
+  name: 'header_',
   data () {
     return {
       point : { stamp : 0, coupon : 0,},
