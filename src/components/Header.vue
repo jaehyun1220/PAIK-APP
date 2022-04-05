@@ -80,7 +80,7 @@
 
 <script>
 export default {
-  name: 'header_',
+  name: 'Header',
   data () {
     return {
       point : { stamp : 0, coupon : 0,},

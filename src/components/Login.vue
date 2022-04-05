@@ -26,7 +26,7 @@ const id = localStorage.getItem('id');
 const pw = localStorage.getItem('pw');
 
 export default {
-    name: 'login_',
+    name: 'Login',
     data () {
         return {
             id : '',

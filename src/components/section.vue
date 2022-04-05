@@ -6,6 +6,6 @@
 
 <script>
     export default {
-        name: 'section_',
+        name: 'Section',
     }
 </script>
