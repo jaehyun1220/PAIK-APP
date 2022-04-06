@@ -74,7 +74,7 @@ import slide from './slide.vue'
 let idx = 0;
 const currentNotice = document.getElementsByClassName('notice_wrap');
 export default {
-    name: 'main',
+    name: 'main-wrap',
     components : {
         slide,
     },

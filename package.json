@@ -2,7 +2,6 @@
   "name": "paik",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -10,19 +9,19 @@
   },
   "dependencies": {
     "boxicons": "^2.1.2",
-    "core-js": "^3.21.1",
+    "core-js": "^3.8.3",
     "hooper": "^0.3.4",
-    "vue": "^3.2.31",
-    "vue-router": "^4.0.14",
-    "vueperslides": "^2.15.2"
+    "vue": "^2.6.14",
+    "vue-router": "^3.5.3"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~5.0.4",
-    "@vue/cli-plugin-eslint": "~5.0.4",
-    "@vue/cli-service": "~5.0.4",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^8.12.0",
-    "eslint-plugin-vue": "^8.5.0",
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^8.0.3",
     "vue-template-compiler": "^2.6.14"
   },
   "eslintConfig": {
@@ -35,7 +34,7 @@
       "eslint:recommended"
     ],
     "parserOptions": {
-      "parser": "babel-eslint"
+      "parser": "@babel/eslint-parser"
     },
     "rules": {}
   },

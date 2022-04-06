@@ -1,8 +1,4 @@
-🚀 PAIK-APP
-vue2.0
-
-### Demo
-<a href="https://xee.netlify.app">xee.netlify.app</a>
+# paik
 
 ## Project setup
 ```

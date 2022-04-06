@@ -19,21 +19,17 @@
 </template>
 
 <script>
-import { Hooper, Slide } from 'hooper';
 import 'hooper/dist/hooper.css';
+import { Hooper, Slide } from 'hooper';
 
 export default {
-    name: 'slide',
+    name: 'slide-wrap',
     components: {
         Hooper,
         Slide
     },
     data() {
     return {
-      hooperSettings: {
-        // itemsToShow: 2,
-        // centerMode: true
-      }
     };
   }
 };

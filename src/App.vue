@@ -49,5 +49,6 @@ export default {
   .logout_container {height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;}
   @media (max-width:991px) {
     #app {width: 100%;}
+    .login_container > img.visual {display: none;}
   }
 </style>

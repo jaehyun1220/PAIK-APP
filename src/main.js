@@ -3,8 +3,10 @@ import App from './App.vue'
 import VueRouter from 'vue-router';
 import { mainPage, orderPage } from './components/pages'
 
-Vue.config.productionTip = false
-Vue.use(VueRouter);
+Vue.config.productionTip = true
+
+Vue.use(VueRouter)
+
 const routes = [
   {
     path : '/',
@@ -26,4 +28,3 @@ new Vue({
   render: h => h(App),
   router,
 }).$mount('#app')
-
