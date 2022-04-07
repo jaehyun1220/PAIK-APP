@@ -57,16 +57,16 @@ export default {
         .login_logo {text-align: center;}
 
         .login_tit {padding: 30px 0;}
-        .login_tit > h1 {color: #003da7; text-align: center; font-size: 25px; line-height: 1.5;}
-        .login_tit > h1 > strong {font-weight: bold; font-size: 25px;}
+        .login_tit > h1 {color: #003da7; text-align: center; font-size: 1.5em; line-height: 1.5;}
+        .login_tit > h1 > strong {font-weight: bold; font-size: 1em;}
 
         .login_form {padding:0 20px;}
         .login_form > input[type="checkbox"] {display: block; width: 0; height: 0; padding: 0; margin: -1px;}
         .login_form > input[type="checkbox"] + label {position: relative; padding-left: 20px;}
         .login_form > input[type="checkbox"] + label::before {content:''; position: absolute; width: 15px; height: 15px; border: 1px solid #e2e2e2; top: 50%; left: 0; transform: translateY(-50%);}
-        .login_form > input[type="checkbox"]:checked + label::before {content:'\2714'; background-color: #003da7; border: 1px solid #003da7; color: #fff; font-weight: 100; font-size: 1rem;}
+        .login_form > input[type="checkbox"]:checked + label::before {content:'\2714'; background-color: #003da7; border: 1px solid #003da7; color: #fff; font-weight: 100; font-size: .75em; text-align: center;}
         .login_form > button {display: block; width: 100%; background-color: #003da7; color: #fff; padding: 7px 0; border: none; margin: 10px 0;}
 
             .input_wrap {display: flex; flex-direction: column; align-items: center; justify-content: center;}
-            .input_wrap > input {border: 1px solid #e2e2e2; background-color: #fff; padding:10px 5px; width: calc(100% - 10px); margin-bottom: 10px;}
+            .input_wrap > input {border: 1px solid #e2e2e2; background-color: #fff; padding:10px; width: calc(100% - 20px); margin-bottom: 10px;}
 </style>

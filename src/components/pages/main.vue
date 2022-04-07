@@ -38,14 +38,14 @@
             <div class="home_event">
                 <ul>
                     <li>
-                        <img src="../../assets/image/sub_menu_01.png" alt="">
-                        <span>기프트샵</span>
-                    </li>
-                    <li>
-                        <a href="./order">
+                        <router-link to="./order">
                             <img src="../../assets/image/sub_menu_02.png" alt="">
                             <span>스마트오더</span>
-                        </a>
+                        </router-link>
+                    </li>
+                    <li>
+                        <img src="../../assets/image/sub_menu_01.png" alt="">
+                        <span>기프트샵</span>
                     </li>
                     <li v-on:click="alertMessage">
                         <img src="../../assets/image/sub_menu_03.png" alt="">
