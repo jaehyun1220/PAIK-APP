@@ -11,7 +11,7 @@
             </div>
             <transition name="fade">
                 <div class="menu_list" v-show="currentTab == 0">
-                    <div class="menu_list_wrap" v-for="(coffees, index) of coffee" v-bind:key="index + '0'">
+                    <div class="menu_list_wrap" v-for="(coffees, index) of coffee" v-bind:key="index">
                         <img :src="coffees.image">
                         <div class="menu_text">
                             <div class="menu_name">
@@ -26,7 +26,7 @@
             </transition>
             <transition name="fade">
                 <div class="menu_list" v-show="currentTab == 1">
-                    <div  class="menu_list_wrap" v-for="(cappuccinos, index) of cappuccino" v-bind:key="index + '1'">
+                    <div  class="menu_list_wrap" v-for="(cappuccinos, index) of cappuccino" v-bind:key="index">
                         <img :src="cappuccinos.image">
                         <div class="menu_text">
                             <div class="menu_name">
@@ -41,7 +41,7 @@
             </transition>
             <transition name="fade">
                 <div class="menu_list" v-show="currentTab == 2">
-                    <div  class="menu_list_wrap" v-for="(juices, index) of juice" v-bind:key="index + '2'">
+                    <div  class="menu_list_wrap" v-for="(juices, index) of juice" v-bind:key="index">
                         <img :src="juices.image">
                         <div class="menu_text">
                             <div class="menu_name">
@@ -56,7 +56,7 @@
             </transition>
             <transition name="fade">
                 <div class="menu_list" v-show="currentTab == 3">
-                    <div  class="menu_list_wrap" v-for="(desserts, index) of dessert" v-bind:key="index + '3'">
+                    <div  class="menu_list_wrap" v-for="(desserts, index) of dessert" v-bind:key="index">
                         <img :src="desserts.image">
                         <div class="menu_text">
                             <div class="menu_name">
@@ -400,5 +400,5 @@
                     .menu_price > span {font-weight: bold; font-size: 14px;}
 
         .fade-enter-active, .fade-leave-active {transition: opacity .3s;}
-        .fade-enter, .fade-leave-to {opacity: 0; transition: opacity .3s;}
+        .fade-enter, .fade-leave-to {opacity: 0;}
 </style>
