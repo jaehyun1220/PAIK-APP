@@ -8,8 +8,8 @@
         </div>
         <div class="login_form">
             <div class="input_wrap">
-                <input type="text" placeholder="아이디" value="admin" v-model="id">
-                <input type="password" placeholder="비밀번호" value="1234" v-model="pw" v-on:keyup.enter="login">
+                <input type="text" placeholder="아이디" v-model="id">
+                <input type="password" placeholder="비밀번호" v-model="pw" v-on:keyup.enter="login">
             </div>
             <input type="checkbox" id="id_save" checked>
             <label for="id_save">아이디 저장</label>
