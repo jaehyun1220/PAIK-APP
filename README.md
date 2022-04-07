@@ -1,4 +1,4 @@
-# PAIK
+# paik
 
 ## Project setup
 ```
