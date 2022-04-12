@@ -7,21 +7,21 @@
         </a>
       <box-icon name='bell' type='solid' color="#071F60"></box-icon>
     </div>
-    <div class="menu">
+    <div>
       <transition name="fade">
-        <div class="menu_bg" v-if="on" v-on:click="close"></div>
+        <div class="bg" v-if="on" v-on:click="close"></div>
       </transition>
       <transition name="slide-fade">
-        <div class="menu_wrap" v-if="on">
-          <div class="menu_header">
+        <div class="item" v-if="on">
+          <div class="top">
             <box-icon name='chevron-left' color="#fff" v-on:click="close"></box-icon>
             <h2>마이페이지</h2>
           </div>
-          <div class="menu_user">
+          <div class="user">
             <img src="../assets/image/my_logo.png" alt="logo">
             <p>안녕하세요! <br><span>관리자</span> 님</p>
           </div>
-          <div class="menu_coupon">
+          <div class="coupon">
             <ul>
               <li>
                 <router-link to="./section">
@@ -43,7 +43,7 @@
               </li>
             </ul>
           </div>
-          <div class="menu_list">
+          <div class="list">
             <ul>
               <li>
                 <router-link to="./section">
@@ -111,31 +111,31 @@ export default {
     .header_wrap > a > img {transform: scale(.75);}
 
   /* .menu  */
-    .menu_bg {position: fixed; width: 100%; top: 0; left: 0; height: 100vh; background-color: rgba(0, 0, 0, .25); z-index: 9;}
-    .menu_wrap {position: fixed; top: 0; left: 0; height: 100vh; width: 90%; background-color: #fff; z-index: 10; overflow-y: auto;}
-      .menu_header {text-align: center; position: relative; padding:12px; background-color: #003DA7; min-height: 40px; display: flex; justify-content: center; align-items: center;}
-      .menu_header > box-icon {position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #fff;}
-      .menu_header > h2 {color: #fff; font-family: 'Jua', sans-serif; font-size: 1.5rem;}
+    .bg {position: fixed; width: 100%; top: 0; left: 0; height: 100vh; background-color: rgba(0, 0, 0, .25); z-index: 9;}
+    .item {position: fixed; top: 0; left: 0; height: 100vh; width: 90%; background-color: #fff; z-index: 10; overflow-y: auto;}
+      .top {text-align: center; position: relative; padding:12px; background-color: #003DA7; min-height: 40px; display: flex; justify-content: center; align-items: center;}
+      .top > box-icon {position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #fff;}
+      .top > h2 {color: #fff; font-family: 'Jua', sans-serif; font-size: 1.5rem;}
 
-      .menu_user {text-align: center; padding: 10px 0;}
-      .menu_user > img {transform: scale(.7);}
-      .menu_user > p {color: #003da7; line-height: 1.2; padding-bottom: 25px;}
-      .menu_user > p > span {font-weight: bold;}
+      .user {text-align: center; padding: 10px 0;}
+      .user > img {transform: scale(.7);}
+      .user > p {color: #003da7; line-height: 1.2; padding-bottom: 25px;}
+      .user > p > span {font-weight: bold;}
 
-      .menu_coupon {border-top: 5px solid #E8E8E8; border-bottom: 5px solid #E8E8E8;}
-      .menu_coupon > ul {display: flex; justify-content: center; align-items: center;}
-      .menu_coupon > ul > li {flex: 1 1 40%;}
-      .menu_coupon > ul > li > a {display: flex; justify-content: center; align-items: center;}
-      .menu_coupon > ul > li > a > img {transform: scale(.6);}
-      .menu_coupon > ul > li:first-child > a {border-right: 1px solid #e8e8e8;}
+      .coupon {border-top: 5px solid #E8E8E8; border-bottom: 5px solid #E8E8E8;}
+      .coupon > ul {display: flex; justify-content: center; align-items: center;}
+      .coupon > ul > li {flex: 1 1 40%;}
+      .coupon > ul > li > a {display: flex; justify-content: center; align-items: center;}
+      .coupon > ul > li > a > img {transform: scale(.6);}
+      .coupon > ul > li:first-child > a {border-right: 1px solid #e8e8e8;}
         .coupon_txt > p {line-height: 1.2;}
         .coupon_txt > p:last-child {color: #ff3848;}
         .coupon_txt > p, .coupon_txt > p > span {font-size: .8rem;}
         .coupon_txt > p > span {font-weight: bold;}
 
-      .menu_list > ul > li > a {display: flex; justify-content: space-between; align-items: center; padding:12px; border-bottom: 1px solid #e8e8e8;}
-      .menu_list > ul > li > a > span {font-size: .9rem;}
-      .menu_list > button {display: block; width: 60%; padding: 8px; background-color: #003da7; color: #fff; text-align: center; margin:12px auto; border-radius: 18px; border: none;}
+      .list > ul > li > a {display: flex; justify-content: space-between; align-items: center; padding:12px; border-bottom: 1px solid #e8e8e8;}
+      .list > ul > li > a > span {font-size: .9rem;}
+      .list > button {display: block; width: 60%; padding: 8px; background-color: #003da7; color: #fff; text-align: center; margin:12px auto; border-radius: 18px; border: none;}
 
         /* menu fade */
           .fade-enter-active, .fade-leave-active { transition: opacity .5s; }
