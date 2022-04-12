@@ -1,6 +1,6 @@
 # PAIK
 
-⚡VUEVUEVUE
+⚡VUE
 
 ## Project setup
 ```
