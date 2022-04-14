@@ -11,23 +11,23 @@
                 </li>
             </ul>
         </div>
-        <transition name="fade">
-            <div>
-                <div class="list_item" v-for="(coffees, index) of category[idx].menu" v-bind:key="index" v-on:click="selected(idx, index)">
-                    <img :src="coffees.image">
-                    <div class="text">
-                        <p>{{coffees.name}}</p>
-                        <p><span>{{coffees.price}}</span>원</p>
+        <div class="list" v-for="(coffees, index) of category[idx].menu" v-bind:key="index" v-on:click="selected(idx, index)">
+            <img :src="coffees.image">
+            <div class="text">
+                <p>{{coffees.name}}</p>
+                <p><span>{{coffees.price}}</span>원</p>
+            </div>
+        </div>
+        <div class="action-sheets" :class="{active : action}">
+            <transition name="fade">
+                <div v-if="on">
+                    <div class="bg" v-on:click="close">
                     </div>
                 </div>
-            </div>
-        </transition>
-        <transition name="slide-fade">
-            <div class="action-sheets" v-if="on">
-                <div class="bg" v-on:click="close()">
-                </div>
-                <div class="box">
-                    <box-icon name='x' color="#071F60" v-on:click="close()"></box-icon>
+            </transition>
+            <transition name="slide-fade">
+                <div class="box" v-if="on">
+                    <box-icon name='x' color="#071F60" v-on:click="close"></box-icon>
                     <div class="thumb">
                         <img :src="select_image" alt="">
                         <p>{{ select_menu }}</p>
@@ -43,19 +43,24 @@
                                     <box-icon name='plus-circle' color="#b3b3b3" v-on:click="plus"></box-icon>
                                 </div>
                             </li>
-                            <!-- <li>
-                                <span>선택옵션</span>
-                                <div class="add">
-                                    <span>선택</span>
-                                    <box-icon name='chevron-right' color="#b3b3b3"></box-icon>
-                                </div>
-                            </li> -->
                         </ul>
                     </div>
-                    <div class="cart">장바구니 담기</div>
+                    <div class="add-button" v-on:click="[close, add()]">장바구니 담기</div>
                 </div>
+            </transition>
+        </div>
+        <div class="order" v-if="order">
+            <div class="simple">
+                <div class="txt">
+                    <p>총<span>{{ totalNum }}</span>개</p>
+                    <p><span> {{ totalPrice}} </span>원</p>
+                </div>
+                <box-icon name='chevron-up' color="#737373"></box-icon>
+                <div class="order-button">주문하기</div>
             </div>
-        </transition>
+            <div class="detail">
+            </div>
+        </div>
     </div>
 </template>
 
@@ -67,6 +72,10 @@
                 count :1,
                 idx : 0,
                 on:false,
+                action:false,
+                order:false,
+                totalNum : 0, 
+                totalPrice : 0,
                 category : [
                     {
                         sort : "coffee", 
@@ -286,16 +295,22 @@
         methods: {
             selected(idx, index) {
                 this.on = !this.on
+                this.action = !this.action
                 this.select_image = this.category[idx].menu[index].image
                 this.select_menu = this.category[idx].menu[index].name
                 this.select_price = this.category[idx].menu[index].price
+                this.order = false
             },
             close() {
                 this.on = !this.on
+                this.action = !this.action
                 this.count = 0;
             },
             plus() {
                 this.count++;
+                this.totalNum = this.count
+                let total = this.select_price * this.totalNum
+                this.totalPrice =  total.toLocaleString('ko-KR')
             },
             minus() {
                 if (this.count == 0) {
@@ -303,6 +318,12 @@
                 } else {
                     this.count--;
                 }
+            },
+            add() {
+                this.on = !this.on
+                this.action = !this.action
+                this.count = 0;
+                this.order = !this.order
             }
         },
     }
@@ -317,35 +338,49 @@
         .tabs > ul {display: flex; justify-content: space-around; align-items: center;  width: 100%; padding:5px 0;}
         .tabs > ul > li > span {color: #333; border-radius: 15px; display: block; font-size: .9rem; padding: 7px 15px; display: block; font-weight: 400;}
         .tabs > ul > li.active > span {background-color: #003DA7; color: #fff;}
-            .list_item {display: flex; align-items: center; justify-content: space-between; background-color: #fff; border-bottom: 1px solid #ececec;}
-            .list_item > img {height: 15vh;}
+            .list {display: flex; align-items: center; justify-content: space-between; background-color: #fff; border-bottom: 1px solid #ececec;}
+            .list > img {height: 15vh;}
                 .text {flex: 3;}
                 .text > p {font-size: .9rem; }
                 .text > p > span {font-weight: bold; font-size: .9rem; display: inline-block;  margin: 5px 0;}
 
-        .fade-enter-active, .fade-leave-active {transition: opacity .3s;}
-        .fade-enter, .fade-leave-to {opacity: 0;}
-
-        .action-sheets {width: 100%; height: 70vh; position: fixed; bottom: 0; left: 0; z-index: 10;}
-            .bg {position: fixed; width: 100%; height: 100%; background-color: rgba(0, 0, 0, .3); z-index: 10; top: 0; left: 0; display: flex; align-items: flex-end;}
+        .action-sheets {width: 100%; height: 70vh; position: fixed; bottom: 0; left: 0; z-index: -1;}
+        .action-sheets.active {z-index: 10;}
+            .bg {position: fixed; width: 100%; height: 100%;  z-index: 10; top: 0; left: 0; display: flex; align-items: flex-end; background-color: rgba(0, 0, 0, .3);}
                 .thumb {text-align: center; padding: 15px 0;}
                 .thumb > img {width: 100px;}
                 .thumb > p {margin-bottom: 7px; font-size: .9rem; font-weight: bold;}
                 .thumb > p > span {color: #003DA7; font-size: .9rem; font-weight: bold;}
 
             .box { background-color: #fff; border-radius: 15px 15px  0 0; width: 100%; position: relative; height: 100%; display: flex; flex-direction: column; justify-content: flex-start; z-index: 11;}
-                .box > box-icon {position: absolute; right: 15px; top: 15px;}
+            .box > box-icon {position: absolute; right: 15px; top: 15px;}
 
                 .options > ul {padding:0 15px;}
-                .options > ul > li {border-bottom: 1px solid #ececec; display: flex; justify-content: space-between; align-items: center; padding: 10px 0;}
+                .options > ul > li {border-bottom: 1px solid #ececec; display: flex; justify-content: space-between; align-items: center; padding: 7px;}
                 .options > ul > li * {font-size: .9rem;}
                 .options > ul > li:first-child {border-top: 1px solid #ececec;}
                     .add {display: flex; align-items: center;}
                     .add > span {display: block; margin: 0 5px; padding: 0 5px;}
 
-                .cart {background-color: #003DA7; color: #fff; text-align: center; padding: 18px; font-size: .9rem; margin-top: auto;}
+                .add-button {background-color: #003DA7; color: #fff; text-align: center; padding: 18px; font-size: .9rem; margin-top: auto;}
+
+        .order {position: fixed; left: 0; bottom: 0; width: 100%; z-index: 11;}
+            .simple {display: flex; justify-content: space-between; align-items: center; background-color: #333; border-radius: 15px 15px 0 0; height: 65px; width: 100%;}
+            .simple box-icon {margin-top: auto; margin-bottom: 12px;}
+
+                .txt > p {font-size: .9rem; padding:0 16px;}
+                .txt > p:first-child {color: #fff; margin-bottom: 5px;}
+                .txt > p:last-child {color: #FFDB2D;}
+                .txt > p:last-child > span {font-size: 1.2rem; margin: 0; margin-right: 0px;}
+                .txt > p > span {margin: 0 5px; font-size: .9rem;}
+
+                .order-button {background-color: #003DA7; color: #fff; padding: 12px 16px; border-radius: 10px; font-size: .9rem; margin: 0 12px;}
+
+    /* transition */
+        .fade-enter-active, .fade-leave-active {transition: opacity .3s;}
+        .fade-enter, .fade-leave-to {opacity: 0;}
 
         .slide-fade-enter-active { transition: all .3s ease; }
         .slide-fade-leave-active { transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0); }
-        .slide-fade-enter, .slide-fade-leave-to {opacity: 0;}
+        .slide-fade-enter, .slide-fade-leave-to {opacity: 0; transform: translateY(100%);}
 </style>
