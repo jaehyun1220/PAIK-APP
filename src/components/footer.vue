@@ -37,8 +37,8 @@ export default {
 
 <style scoped>
     .footer {position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 500px; box-shadow: 0px -5px 15px rgba(0, 0, 0, .075); border-radius: 15px 15px 0 0; background-color: #fff; z-index: 1;}
-        .footer > ul {display: flex; justify-content: space-around; align-items: center; padding: 12px;}
-        .footer > ul > li > a {display: flex; flex-direction: column; align-items: center; justify-content: center;}
-        .footer > ul > li > a > img {transform: scale(.75); height: 45px;}
-        .footer > ul > li > a > span {font-size: .85em; color: #333;}
+        ul {display: flex; justify-content: space-around; align-items: center; padding: 12px;}
+        ul > li > a {display: flex; flex-direction: column; align-items: center; justify-content: center;}
+        ul > li > a > img {transform: scale(.75); height: 45px;}
+        ul > li > a > span {font-size: .85em; color: #333;}
 </style>

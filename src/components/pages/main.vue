@@ -2,7 +2,7 @@
     <div class="container">
         <slide/>
         <div class="main">
-            <div class="menu">
+            <div class="m_menu">
                 <h2>고객님을 위한 추천 메뉴</h2>
                 <ul>
                     <li>
@@ -35,7 +35,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="event">
+            <div class="m_event">
                 <ul>
                     <li>
                         <router-link to="./order">
@@ -63,9 +63,9 @@
                     </li>
                 </ul>
             </div>
-            <div class="notice">
-                <div class="cover">
-                    <div class="list" v-for="(noticeLists, index) of noticeList" v-bind:key="index">
+            <div class="m_notice">
+                <div class="n_cover">
+                    <div class="n_list" v-for="(noticeLists, index) of noticeList" v-bind:key="index">
                         <span>{{noticeList[index].sort}}</span>
                         <p>{{noticeList[index].text}}</p>
                     </div>
@@ -132,25 +132,25 @@ export default {
     .container {padding: 50px 0 85px 0; width: 100%; height: 100%;background-color: #F2F2F2;}
         .main {padding: 8px;}
 
-            .menu {background-color: #fff; border-radius: 15px; padding: 12px; margin: 6px; box-shadow: 0px 5px 15px rgba(0, 0, 0, .05);}
-            .menu > h2 {font-size: 0.9em; color: #071f60; font-weight: 600; padding: 6px 0;}
-            .menu > ul {display: flex; justify-content: space-between; align-items: center; overflow-x: auto; white-space: nowrap; padding: 24px;}
-            .menu > ul > li {width: 100%; margin-right: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center;}
-            .menu > ul > li:last-child {margin-right: 0;}
-            .menu > ul > li > img {max-height: 200px;}
-            .menu > ul > li > span {font-size: .8em; color: #333; display: block; text-align: center; padding: 8px 0;}
+            .m_menu {background-color: #fff; border-radius: 15px; padding: 12px; margin: 6px; box-shadow: 0px 5px 15px rgba(0, 0, 0, .05);}
+            .m_menu > h2 {font-size: 0.9em; color: #071f60; font-weight: 600; padding: 6px 0;}
+            .m_menu > ul {display: flex; justify-content: space-between; align-items: center; overflow-x: auto; white-space: nowrap; padding: 24px;}
+            .m_menu > ul > li {width: 100%; margin-right: 50px; display: flex; flex-direction: column; align-items: center; justify-content: center;}
+            .m_menu > ul > li:last-child {margin-right: 0;}
+            .m_menu > ul > li > img {max-height: 200px;}
+            .m_menu > ul > li > span {font-size: .8em; color: #333; display: block; text-align: center; padding: 8px 0;}
 
-            .event > ul {display: flex; justify-content: center; flex-wrap: wrap;}
-            .event > ul > li {background-color: #fff; border-radius: 10px; margin: 6px; box-shadow: 0px 5px 15px rgba(0, 0, 0, .05); height: 50px; flex: 1 1 40%; display: flex; justify-content: flex-start; align-items: center; padding: 12px;}
-            .event > ul > li > a {display: block; width: 100%;}
-            .event > ul > li > a img {padding:0 8px;}
-            .event > ul > li > a span {font-size: .8em;}
+            .m_event > ul {display: flex; justify-content: center; flex-wrap: wrap;}
+            .m_event > ul > li {background-color: #fff; border-radius: 10px; margin: 6px; box-shadow: 0px 5px 15px rgba(0, 0, 0, .05); height: 50px; flex: 1 1 40%; display: flex; justify-content: flex-start; align-items: center; padding: 12px;}
+            .m_event > ul > li > a {display: block; width: 100%;}
+            .m_event > ul > li > a img {padding:0 8px;}
+            .m_event > ul > li > a span {font-size: .8em;}
 
-            .notice {height: 40px; overflow:hidden; background: url('../../assets/image/notice.png')no-repeat 2.5%; margin:6px; overflow-y: hidden; background-color: #fff; border-radius: 10px; box-shadow:0px 5px 15px rgba(0, 0, 0, .05);}
-                .cover { overflow: hidden; transition: all .3s;}
-                .cover.move { transform: translateY(-40px); transition: all .3s;}
-                .cover.move2 { transform: translateY(-80px); transition: all .3s;}
-                    .list {display: flex; justify-content: flex-start; align-items: center; padding-left: 35px; height: 40px;}
-                    .list > span {margin:0 5px;}
-                    .list > span, .list > p {font-size: .8rem;}
+            .m_notice {height: 40px; overflow:hidden; background: url('../../assets/image/notice.png')no-repeat 2.5%; margin:6px; overflow-y: hidden; background-color: #fff; border-radius: 10px; box-shadow:0px 5px 15px rgba(0, 0, 0, .05);}
+                .n_cover { overflow: hidden; transition: all .3s;}
+                .n_cover.move { transform: translateY(-40px); transition: all .3s;}
+                .n_cover.move2 { transform: translateY(-80px); transition: all .3s;}
+                    .n_list {display: flex; justify-content: flex-start; align-items: center; padding-left: 35px; height: 40px;}
+                    .n_list > span {margin:0 5px;}
+                    .n_list > span, .list > p {font-size: .8rem;}
 </style>

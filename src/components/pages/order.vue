@@ -13,7 +13,7 @@
         </div>
         <div class="list" v-for="(coffees, index) of category[idx].menu" v-bind:key="index" v-on:click="selected(idx, index)">
             <img :src="coffees.image">
-            <div class="text">
+            <div class="l_txt">
                 <p>{{coffees.name}}</p>
                 <p><span>{{coffees.price}}</span>원</p>
             </div>
@@ -21,23 +21,23 @@
         <div class="action-sheets" :class="{active : action}">
             <transition name="fade">
                 <div v-if="on">
-                    <div class="bg" v-on:click="close">
+                    <div class="as_cover" v-on:click="close">
                     </div>
                 </div>
             </transition>
             <transition name="slide-fade">
-                <div class="box" v-if="on">
+                <div class="as_wrap" v-if="on">
                     <box-icon name='x' color="#071F60" v-on:click="close"></box-icon>
-                    <div class="thumb">
+                    <div class="as_product">
                         <img :src="select_image" alt="">
                         <p>{{ select_menu }}</p>
                         <p><span>{{ select_price }}</span>원</p>
                     </div>
-                    <div class="options">
+                    <div class="as_option">
                         <ul>
                             <li>
                                 <span>수량</span>
-                                <div class="add">
+                                <div class="as_add">
                                     <box-icon name='minus-circle' color="#b3b3b3" v-on:click="minus"></box-icon>
                                     <span>{{ this.count }}</span>
                                     <box-icon name='plus-circle' color="#b3b3b3" v-on:click="plus"></box-icon>
@@ -45,20 +45,28 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="add-button" v-on:click="[close, add()]">장바구니 담기</div>
+                    <div class="as_btn" v-on:click="[close, add()]">장바구니 담기</div>
                 </div>
             </transition>
         </div>
         <div class="order" v-if="order">
-            <div class="simple">
-                <div class="txt">
+            <div class="o_total">
+                <div class="o_txt">
                     <p>총<span>{{ totalNum }}</span>개</p>
                     <p><span> {{ totalPrice}} </span>원</p>
                 </div>
                 <box-icon name='chevron-up' color="#737373"></box-icon>
-                <div class="order-button">주문하기</div>
+                <div class="o_btn">주문하기</div>
             </div>
-            <div class="detail">
+            <div class="o_list">
+                <div class="o_product">
+                    <img :src="select_image">
+                    <p>{{ select_menu }}</p>
+                </div>
+                <div class="o_price">
+                    <p>{{ select_price }}원</p>
+                    <box-icon name='x-circle' color="#b3b3b3"></box-icon>
+                </div>
             </div>
         </div>
     </div>
@@ -76,6 +84,10 @@
                 order:false,
                 totalNum : 0, 
                 totalPrice : 0,
+                select_image : '',
+                select_menu : [],
+                cart : [],
+                select_price : 0,
                 category : [
                     {
                         sort : "coffee", 
@@ -322,8 +334,21 @@
             add() {
                 this.on = !this.on
                 this.action = !this.action
-                this.count = 0;
-                this.order = !this.order
+                //console.log(this.count)
+                if (this.count == 0) {
+                    this.order = false
+                    this.count = 0;
+                } else {
+                    this.order = true
+                    this.count = 0;
+                }
+                let item =  {
+                    'listMenu' : this.select_menu,
+                    'listPrice' : this.select_price,
+                    'listImage' : this.select_image,
+                }
+                this.cart.push(item)
+                //console.log(JSON.stringify(this.cart))
             }
         },
     }
@@ -340,41 +365,48 @@
         .tabs > ul > li.active > span {background-color: #003DA7; color: #fff;}
             .list {display: flex; align-items: center; justify-content: space-between; background-color: #fff; border-bottom: 1px solid #ececec;}
             .list > img {height: 15vh;}
-                .text {flex: 3;}
-                .text > p {font-size: .9rem; }
-                .text > p > span {font-weight: bold; font-size: .9rem; display: inline-block;  margin: 5px 0;}
+                .l_txt {flex: 3;}
+                .l_txt > p {font-size: .9rem; }
+                .l_txt > p > span {font-weight: bold; font-size: .9rem; display: inline-block;  margin: 5px 0;}
 
         .action-sheets {width: 100%; height: 70vh; position: fixed; bottom: 0; left: 0; z-index: -1;}
         .action-sheets.active {z-index: 10;}
-            .bg {position: fixed; width: 100%; height: 100%;  z-index: 10; top: 0; left: 0; display: flex; align-items: flex-end; background-color: rgba(0, 0, 0, .3);}
-                .thumb {text-align: center; padding: 15px 0;}
-                .thumb > img {width: 100px;}
-                .thumb > p {margin-bottom: 7px; font-size: .9rem; font-weight: bold;}
-                .thumb > p > span {color: #003DA7; font-size: .9rem; font-weight: bold;}
+            .as_cover {position: fixed; width: 100%; height: 100%;  z-index: 10; top: 0; left: 0; display: flex; align-items: flex-end; background-color: rgba(0, 0, 0, .3);}
 
-            .box { background-color: #fff; border-radius: 15px 15px  0 0; width: 100%; position: relative; height: 100%; display: flex; flex-direction: column; justify-content: flex-start; z-index: 11;}
-            .box > box-icon {position: absolute; right: 15px; top: 15px;}
+            .as_wrap { background-color: #fff; border-radius: 15px 15px  0 0; width: 100%; position: relative; height: 100%; display: flex; flex-direction: column; justify-content: flex-start; z-index: 11;}
+            .as_wrap > box-icon {position: absolute; right: 15px; top: 15px;}
 
-                .options > ul {padding:0 15px;}
-                .options > ul > li {border-bottom: 1px solid #ececec; display: flex; justify-content: space-between; align-items: center; padding: 7px;}
-                .options > ul > li * {font-size: .9rem;}
-                .options > ul > li:first-child {border-top: 1px solid #ececec;}
-                    .add {display: flex; align-items: center;}
-                    .add > span {display: block; margin: 0 5px; padding: 0 5px;}
+                .as_product {text-align: center; padding: 15px 0;}
+                .as_product > img {width: 100px;}
+                .as_product > p {margin-bottom: 7px; font-size: .9rem; font-weight: bold;}
+                .as_product > p > span {color: #003DA7; font-size: .9rem; font-weight: bold;}
 
-                .add-button {background-color: #003DA7; color: #fff; text-align: center; padding: 18px; font-size: .9rem; margin-top: auto;}
+                .as_option > ul {padding:0 15px;}
+                .as_option > ul > li {border-bottom: 1px solid #ececec; display: flex; justify-content: space-between; align-items: center; padding: 7px;}
+                .as_option > ul > li * {font-size: .9rem;}
+                .as_option > ul > li:first-child {border-top: 1px solid #ececec;}
+                    .as_add {display: flex; align-items: center;}
+                    .as_add > span {display: block; margin: 0 5px; padding: 0 5px;}
 
-        .order {position: fixed; left: 0; bottom: 0; width: 100%; z-index: 11;}
-            .simple {display: flex; justify-content: space-between; align-items: center; background-color: #333; border-radius: 15px 15px 0 0; height: 65px; width: 100%;}
-            .simple box-icon {margin-top: auto; margin-bottom: 12px;}
+                .as_btn {background-color: #003DA7; color: #fff; text-align: center; padding: 18px; font-size: .9rem; margin-top: auto;}
 
-                .txt > p {font-size: .9rem; padding:0 16px;}
-                .txt > p:first-child {color: #fff; margin-bottom: 5px;}
-                .txt > p:last-child {color: #FFDB2D;}
-                .txt > p:last-child > span {font-size: 1.2rem; margin: 0; margin-right: 0px;}
-                .txt > p > span {margin: 0 5px; font-size: .9rem;}
+        .order {position: fixed; left: 0; bottom: 0; width: 100%; z-index: 11; background-color: #fff;}
+            .o_total {display: flex; justify-content: space-between; align-items: center; background-color: #333; border-radius: 15px 15px 0 0; height: 65px; width: 100%;}
+            .o_total box-icon {margin-top: auto; margin-bottom: 12px;}
 
-                .order-button {background-color: #003DA7; color: #fff; padding: 12px 16px; border-radius: 10px; font-size: .9rem; margin: 0 12px;}
+            .o_list {display: flex; justify-content: space-between; align-items: center; padding: 0 12px;}
+                .o_product, .o_price {display: flex; align-items: center;}
+                .o_product > img { width: 75px; margin: auto;}
+                .o_product > p {font-size: .8rem;}
+
+                .o_price > p {margin: 0 5px; font-size: .9rem;}
+                    .o_txt > p {font-size: .9rem; padding:0 16px;}
+                    .o_txt > p:first-child {color: #fff; margin-bottom: 5px;}
+                    .o_txt > p:last-child {color: #FFDB2D;}
+                    .o_txt > p:last-child > span {font-size: 1.2rem; margin: 0; margin-right: 0px;}
+                    .o_txt > p > span {margin: 0 5px; font-size: .9rem;}
+
+                    .o_btn {background-color: #003DA7; color: #fff; padding: 12px 16px; border-radius: 10px; font-size: .9rem; margin: 0 12px;}
 
     /* transition */
         .fade-enter-active, .fade-leave-active {transition: opacity .3s;}
