@@ -6,8 +6,8 @@
         </div>
         <div class="tabs">
             <ul>
-                <li v-for="(categorys, index) of category" v-bind:key="index" :class="{active: idx === index}">
-                    <span v-on:click="idx = index">{{category[index].name}}</span>
+                <li v-for="(categories, index) of category" v-bind:key="index" :class="{active: idx === index}">
+                    <span v-on:click="idx = index">{{categories.name}}</span>
                 </li>
             </ul>
         </div>
@@ -18,20 +18,19 @@
                 <p><span>{{coffees.price}}</span>원</p>
             </div>
         </div>
-        <div class="action-sheets" :class="{active : action}">
+        <div class="action-sheets" :class="{active : a_modal}">
             <transition name="fade">
-                <div v-if="on">
-                    <div class="as_cover" v-on:click="close">
-                    </div>
+                <div v-if="a_modal">
+                    <div class="as_cover" v-on:click="close"></div>
                 </div>
             </transition>
             <transition name="slide-fade">
-                <div class="as_wrap" v-if="on">
+                <div class="as_wrap" v-if="a_modal">
                     <box-icon name='x' color="#071F60" v-on:click="close"></box-icon>
                     <div class="as_product">
-                        <img :src="select_image" alt="">
-                        <p>{{ select_menu }}</p>
-                        <p><span>{{ select_price }}</span>원</p>
+                        <img :src="s_image" alt="">
+                        <p>{{ s_menu }}</p>
+                        <p><span>{{ s_price }}</span>원</p>
                     </div>
                     <div class="as_option">
                         <ul>
@@ -39,7 +38,7 @@
                                 <span>수량</span>
                                 <div class="as_add">
                                     <box-icon name='minus-circle' color="#b3b3b3" v-on:click="minus"></box-icon>
-                                    <span>{{ this.count }}</span>
+                                    <span>{{ this.num }}</span>
                                     <box-icon name='plus-circle' color="#b3b3b3" v-on:click="plus"></box-icon>
                                 </div>
                             </li>
@@ -49,23 +48,25 @@
                 </div>
             </transition>
         </div>
-        <div class="order" v-if="order">
-            <div class="o_total">
+        <div class="order" v-if="o_modal">
+            <div class="o_preview">
                 <div class="o_txt">
-                    <p>총<span>{{ totalNum }}</span>개</p>
-                    <p><span> {{ totalPrice}} </span>원</p>
+                    <p>총<span>{{ t_num }}</span>개</p>
+                    <p><span> {{ t_price}} </span>원</p>
                 </div>
                 <box-icon name='chevron-up' color="#737373"></box-icon>
                 <div class="o_btn">주문하기</div>
             </div>
-            <div class="o_list">
-                <div class="o_product">
-                    <img :src="select_image">
-                    <p>{{ select_menu }}</p>
-                </div>
-                <div class="o_price">
-                    <p>{{ select_price }}원</p>
-                    <box-icon name='x-circle' color="#b3b3b3"></box-icon>
+            <div class="o_content">
+                <div class="o_list">
+                    <div class="o_product">
+                        <img :src="s_image">
+                        <p>{{ s_menu }}</p>
+                    </div>
+                    <div class="o_price">
+                        <p>{{ s_price }}원</p>
+                        <box-icon name='x-circle' color="#b3b3b3"></box-icon>
+                    </div>
                 </div>
             </div>
         </div>
@@ -77,17 +78,16 @@
         name:'order-wrap',
         data() {
             return {
-                count :1,
+                num :1,
                 idx : 0,
-                on:false,
-                action:false,
-                order:false,
-                totalNum : 0, 
-                totalPrice : 0,
-                select_image : '',
-                select_menu : [],
-                cart : [],
-                select_price : 0,
+                a_modal:false,
+                o_modal:false,
+                t_num : 0, 
+                t_price : 0,
+                s_image : '',
+                s_menu : [],
+                s_price : 0,
+                o_cart : [],
                 category : [
                     {
                         sort : "coffee", 
@@ -302,53 +302,45 @@
                         }]
                     },
                 ],
+                
             }
         },
         methods: {
             selected(idx, index) {
-                this.on = !this.on
-                this.action = !this.action
-                this.select_image = this.category[idx].menu[index].image
-                this.select_menu = this.category[idx].menu[index].name
-                this.select_price = this.category[idx].menu[index].price
-                this.order = false
+                this.a_modal = !this.a_modal
+                this.o_modal = false
+                this.s_menu = this.category[idx].menu[index].name
+                this.s_image = this.category[idx].menu[index].image
+                this.s_price = this.category[idx].menu[index].price
             },
             close() {
-                this.on = !this.on
-                this.action = !this.action
-                this.count = 0;
+                this.a_modal = !this.a_modal
+                this.num = 0;
             },
             plus() {
-                this.count++;
-                this.totalNum = this.count
-                let total = this.select_price * this.totalNum
-                this.totalPrice =  total.toLocaleString('ko-KR')
+                this.num++;
+                this.t_num = this.num
+                let all = this.s_price * this.t_num
+                this.t_price =  all.toLocaleString('ko-KR')
             },
             minus() {
-                if (this.count == 0) {
-                    this.count = 0;
+                if (this.num == 0) {
+                    this.num = 0;
                 } else {
-                    this.count--;
+                    this.num--;
                 }
             },
             add() {
-                this.on = !this.on
-                this.action = !this.action
-                //console.log(this.count)
-                if (this.count == 0) {
-                    this.order = false
-                    this.count = 0;
-                } else {
-                    this.order = true
-                    this.count = 0;
-                }
+                this.a_modal = !this.a_modal
+                this.o_modal = true
+                this.num = 0;
                 let item =  {
-                    'listMenu' : this.select_menu,
-                    'listPrice' : this.select_price,
-                    'listImage' : this.select_image,
+                    l_menu : this.s_menu,
+                    l_price : this.s_price,
+                    l_image : this.s_image,
                 }
-                this.cart.push(item)
-                //console.log(JSON.stringify(this.cart))
+                this.o_cart.push(item)
+                //console.log(JSON.stringify(this.o_cart))
             }
         },
     }
@@ -391,22 +383,24 @@
                 .as_btn {background-color: #003DA7; color: #fff; text-align: center; padding: 18px; font-size: .9rem; margin-top: auto;}
 
         .order {position: fixed; left: 0; bottom: 0; width: 100%; z-index: 11; background-color: #fff;}
-            .o_total {display: flex; justify-content: space-between; align-items: center; background-color: #333; border-radius: 15px 15px 0 0; height: 65px; width: 100%;}
-            .o_total box-icon {margin-top: auto; margin-bottom: 12px;}
+            .o_preview {display: flex; justify-content: space-between; align-items: center; background-color: #333; border-radius: 15px 15px 0 0; height: 65px; width: 100%;}
+            .o_preview box-icon {margin-top: auto; margin-bottom: 12px;}
 
-            .o_list {display: flex; justify-content: space-between; align-items: center; padding: 0 12px;}
-                .o_product, .o_price {display: flex; align-items: center;}
-                .o_product > img { width: 75px; margin: auto;}
-                .o_product > p {font-size: .8rem;}
+            .o_content {height: 0vh; overflow-y: auto; transition: all .3s;}
+            .o_content.active {height: 0vh; transition: all .3s;}
+                .o_list {display: flex; justify-content: space-between; align-items: center; padding: 0 12px;}
+                    .o_product, .o_price {display: flex; align-items: center;}
+                    .o_product > img { width: 75px; margin: auto;}
+                    .o_product > p {font-size: .8rem;}
 
-                .o_price > p {margin: 0 5px; font-size: .9rem;}
-                    .o_txt > p {font-size: .9rem; padding:0 16px;}
-                    .o_txt > p:first-child {color: #fff; margin-bottom: 5px;}
-                    .o_txt > p:last-child {color: #FFDB2D;}
-                    .o_txt > p:last-child > span {font-size: 1.2rem; margin: 0; margin-right: 0px;}
-                    .o_txt > p > span {margin: 0 5px; font-size: .9rem;}
+                    .o_price > p {margin: 0 5px; font-size: .9rem;}
+                        .o_txt > p {font-size: .9rem; padding:0 16px;}
+                        .o_txt > p:first-child {color: #fff; margin-bottom: 5px;}
+                        .o_txt > p:last-child {color: #FFDB2D;}
+                        .o_txt > p:last-child > span {font-size: 1.2rem; margin: 0; margin-right: 0px;}
+                        .o_txt > p > span {margin: 0 5px; font-size: .9rem;}
 
-                    .o_btn {background-color: #003DA7; color: #fff; padding: 12px 16px; border-radius: 10px; font-size: .9rem; margin: 0 12px;}
+                        .o_btn {background-color: #003DA7; color: #fff; padding: 12px 16px; border-radius: 10px; font-size: .9rem; margin: 0 12px;}
 
     /* transition */
         .fade-enter-active, .fade-leave-active {transition: opacity .3s;}
