@@ -5,5 +5,10 @@
 <script>
     export default {
         name: 'section_component',
+        data() {
+            return {
+
+            }
+        },
     }
 </script>

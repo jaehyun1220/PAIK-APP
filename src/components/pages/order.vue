@@ -48,25 +48,30 @@
                 </div>
             </transition>
         </div>
-        <div class="order" v-if="o_modal">
+        <div class="order" v-if="o_modal" :class="{hide:isActive}">
             <div class="o_preview">
                 <div class="o_txt">
                     <p>총<span>{{ t_num }}</span>개</p>
                     <p><span> {{ t_price}} </span>원</p>
                 </div>
-                <box-icon name='chevron-up' color="#737373"></box-icon>
-                <div class="o_btn">주문하기</div>
+                <box-icon name='chevron-down' color="#737373" v-on:click="open"></box-icon>
+                <div class="o_btn_01">주문하기</div>
             </div>
             <div class="o_content">
-                <div class="o_list">
-                    <div class="o_product">
-                        <img :src="s_image">
-                        <p>{{ s_menu }}</p>
+                <transition-group name="horizontal">
+                    <div class="o_list" v-for="(o_carts, index) of o_cart" v-bind:key="index">
+                        <div class="o_product">
+                            <img :src="o_carts.l_image">
+                            <p>{{ o_carts.l_menu}}</p>
+                        </div>
+                        <div class="o_price">
+                            <p>{{ o_carts.l_price }}원 x {{ o_carts.l_num }}</p>
+                            <box-icon name='x-circle' color="#b3b3b3" v-on:click="del(index)"></box-icon>
+                        </div>
                     </div>
-                    <div class="o_price">
-                        <p>{{ s_price }}원</p>
-                        <box-icon name='x-circle' color="#b3b3b3"></box-icon>
-                    </div>
+                </transition-group>
+                <div v-on:click="smart">
+                    <router-link to="./confirm" class="o_btn_02">스마트오더 주문하기</router-link>
                 </div>
             </div>
         </div>
@@ -78,12 +83,14 @@
         name:'order-wrap',
         data() {
             return {
-                num :1,
+                num :0,
                 idx : 0,
+                isActive: false,
                 a_modal:false,
                 o_modal:false,
                 t_num : 0, 
                 t_price : 0,
+                it_price : 0,
                 s_image : '',
                 s_menu : [],
                 s_price : 0,
@@ -307,11 +314,14 @@
         },
         methods: {
             selected(idx, index) {
+                this.num = 0
                 this.a_modal = !this.a_modal
-                this.o_modal = false
                 this.s_menu = this.category[idx].menu[index].name
                 this.s_image = this.category[idx].menu[index].image
                 this.s_price = this.category[idx].menu[index].price
+            },
+            open() {
+                this.isActive = !this.isActive
             },
             close() {
                 this.a_modal = !this.a_modal
@@ -319,9 +329,6 @@
             },
             plus() {
                 this.num++;
-                this.t_num = this.num
-                let all = this.s_price * this.t_num
-                this.t_price =  all.toLocaleString('ko-KR')
             },
             minus() {
                 if (this.num == 0) {
@@ -330,17 +337,34 @@
                     this.num--;
                 }
             },
-            add() {
-                this.a_modal = !this.a_modal
-                this.o_modal = true
-                this.num = 0;
-                let item =  {
-                    l_menu : this.s_menu,
-                    l_price : this.s_price,
-                    l_image : this.s_image,
+            del(index) {
+                this.o_cart.splice(index, 1)
+                if(this.o_cart.length == 0) {
+                    this.t_num = 0;
+                    this.t_price = 0;
                 }
-                this.o_cart.push(item)
-                //console.log(JSON.stringify(this.o_cart))
+            },
+            add() {
+                if (this.num != 0) {
+                    this.a_modal = !this.a_modal
+                    this.o_modal = true
+                    let item =  {
+                        l_menu : this.s_menu,
+                        l_price : this.s_price,
+                        l_image : this.s_image,
+                        l_num : this.num
+                        
+                    }
+                    this.o_cart.push(item)
+                    //console.log(JSON.stringify(this.o_cart))
+                    //this.t_num = item.l_num
+                    //this.t_price = item.l_price * item.l_num
+                    this.it_price = item.l_price * item.l_num
+                    console.log(this.it_price)
+                }
+            },
+            smart() {
+                localStorage.setItem('co_cart',JSON.stringify(this.o_cart))
             }
         },
     }
@@ -361,11 +385,11 @@
                 .l_txt > p {font-size: .9rem; }
                 .l_txt > p > span {font-weight: bold; font-size: .9rem; display: inline-block;  margin: 5px 0;}
 
-        .action-sheets {width: 100%; height: 70vh; position: fixed; bottom: 0; left: 0; z-index: -1;}
-        .action-sheets.active {z-index: 10;}
+        .action-sheets {width: 100%; height: 100%; position: fixed; bottom: 0; left: 50%; z-index: -1; transform: translateX(-50%); max-width: 500px; display: flex;}
+        .action-sheets.active {z-index: 11;}
             .as_cover {position: fixed; width: 100%; height: 100%;  z-index: 10; top: 0; left: 0; display: flex; align-items: flex-end; background-color: rgba(0, 0, 0, .3);}
 
-            .as_wrap { background-color: #fff; border-radius: 15px 15px  0 0; width: 100%; position: relative; height: 100%; display: flex; flex-direction: column; justify-content: flex-start; z-index: 11;}
+            .as_wrap { background-color: #fff; border-radius: 15px 15px  0 0;  position: relative; width: 100%; height: 70vh; display: flex; flex-direction: column; z-index: 11; margin-top: auto;}
             .as_wrap > box-icon {position: absolute; right: 15px; top: 15px;}
 
                 .as_product {text-align: center; padding: 15px 0;}
@@ -382,13 +406,14 @@
 
                 .as_btn {background-color: #003DA7; color: #fff; text-align: center; padding: 18px; font-size: .9rem; margin-top: auto;}
 
-        .order {position: fixed; left: 0; bottom: 0; width: 100%; z-index: 11; background-color: #fff;}
+        .order {position: fixed; left: 50%; bottom: 0; width: 100%; max-width: 500px;  z-index: 10; transform: translate(-50%, 0); transition: all .3s;}
+        .order.hide {transition: all .3s; transform:translate(-50%, calc(100% - 65px));}
+        .order.hide box-icon {transform: rotate(180deg);}
             .o_preview {display: flex; justify-content: space-between; align-items: center; background-color: #333; border-radius: 15px 15px 0 0; height: 65px; width: 100%;}
             .o_preview box-icon {margin-top: auto; margin-bottom: 12px;}
 
-            .o_content {height: 0vh; overflow-y: auto; transition: all .3s;}
-            .o_content.active {height: 0vh; transition: all .3s;}
-                .o_list {display: flex; justify-content: space-between; align-items: center; padding: 0 12px;}
+            .o_content {max-height: 30vh; overflow-y: auto; transition: all .3s; background-color: #fff;}
+                .o_list {display: flex; justify-content: space-between; align-items: center; padding: 0 12px; border-bottom: 1px solid #e4e4e4;}
                     .o_product, .o_price {display: flex; align-items: center;}
                     .o_product > img { width: 75px; margin: auto;}
                     .o_product > p {font-size: .8rem;}
@@ -400,11 +425,15 @@
                         .o_txt > p:last-child > span {font-size: 1.2rem; margin: 0; margin-right: 0px;}
                         .o_txt > p > span {margin: 0 5px; font-size: .9rem;}
 
-                        .o_btn {background-color: #003DA7; color: #fff; padding: 12px 16px; border-radius: 10px; font-size: .9rem; margin: 0 12px;}
+                        .o_btn_01 {background-color: #003DA7; color: #fff; padding: 12px 16px; border-radius: 10px; font-size: .9rem; margin: 0 12px;}
+                        .o_btn_02 {background-color: #003DA7; color: #fff; padding: 15px; font-size: .9rem; text-align: center; display: block;}
 
     /* transition */
         .fade-enter-active, .fade-leave-active {transition: opacity .3s;}
         .fade-enter, .fade-leave-to {opacity: 0;}
+
+        .horizontal-enter-active, .horizontal-leave-active {transition: all .5s; transform: translateY(0%);}
+        .horizontal-enter, .horizontal-leave-to {opacity: 0; transform: translateY(30%);}
 
         .slide-fade-enter-active { transition: all .3s ease; }
         .slide-fade-leave-active { transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0); }

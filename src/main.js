@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router';
-import { mainPage, orderPage } from './components/pages'
+import { mainPage, orderPage, confirmPage } from './components/pages'
 
 Vue.config.productionTip = true
 
@@ -16,7 +16,12 @@ const routes = [
 
     path : '/order',
     component: orderPage
-  }
+  },
+  {
+
+    path : '/confirm',
+    component: confirmPage
+  },
 ]
 
 const router = new VueRouter({

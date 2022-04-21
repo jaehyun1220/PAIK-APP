@@ -66,8 +66,8 @@
             <div class="m_notice">
                 <div class="n_cover">
                     <div class="n_list" v-for="(noticeLists, index) of noticeList" v-bind:key="index">
-                        <span>{{noticeList[index].sort}}</span>
-                        <p>{{noticeList[index].text}}</p>
+                        <span>{{noticeLists.sort}}</span>
+                        <p>{{noticeLists.text}}</p>
                     </div>
                 </div>
             </div>
@@ -78,7 +78,7 @@
 <script>
 import slide from './slide.vue'
 let idx = 0;
-const currentNotice = document.getElementsByClassName('cover');
+const currentNotice = document.getElementsByClassName('n_cover');
 export default {
     name: 'main-wrap',
     components : {
@@ -109,14 +109,14 @@ export default {
         rolling () {
             setInterval (()=> {
                 if (idx == 0) {
-                    currentNotice[0].classList.add('move');
+                    currentNotice.classList.add('move');
                     idx = 1;
                 } else if (idx == 1) {
-                    currentNotice[0].classList.add('move2');
+                    currentNotice.classList.add('move2');
                     idx = 2;
                 } else if (idx == 2) {
-                    currentNotice[0].classList.remove('move');
-                    currentNotice[0].classList.remove('move2');
+                    currentNotice.classList.remove('move');
+                    currentNotice.classList.remove('move2');
                     idx = 0;
                 }
             },2000);
@@ -152,5 +152,5 @@ export default {
                 .n_cover.move2 { transform: translateY(-80px); transition: all .3s;}
                     .n_list {display: flex; justify-content: flex-start; align-items: center; padding-left: 35px; height: 40px;}
                     .n_list > span {margin:0 5px;}
-                    .n_list > span, .list > p {font-size: .8rem;}
+                    .n_list > span, .n_list > p {font-size: .8rem;}
 </style>
