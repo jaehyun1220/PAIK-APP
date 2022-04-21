@@ -365,7 +365,7 @@
             },
             smart() {
                 localStorage.setItem('co_cart',JSON.stringify(this.o_cart))
-            }
+            },
         },
     }
 </script>

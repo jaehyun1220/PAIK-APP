@@ -64,7 +64,7 @@
                 </ul>
             </div>
             <div class="m_notice">
-                <div class="n_cover">
+                <div class="n_cover" :class="{move:isMove, move2:isMove2}">
                     <div class="n_list" v-for="(noticeLists, index) of noticeList" v-bind:key="index">
                         <span>{{noticeLists.sort}}</span>
                         <p>{{noticeLists.text}}</p>
@@ -78,7 +78,6 @@
 <script>
 import slide from './slide.vue'
 let idx = 0;
-const currentNotice = document.getElementsByClassName('n_cover');
 export default {
     name: 'main-wrap',
     components : {
@@ -86,6 +85,8 @@ export default {
     },
     data () {
         return {
+            isMove : false,
+            isMove2 : false,
             noticeList : [
                 { 
                     sort : '[공지]',
@@ -109,14 +110,14 @@ export default {
         rolling () {
             setInterval (()=> {
                 if (idx == 0) {
-                    currentNotice.classList.add('move');
+                    this.isMove = !this.isMove
                     idx = 1;
                 } else if (idx == 1) {
-                    currentNotice.classList.add('move2');
+                    this.isMove2 = !this.isMove2
                     idx = 2;
                 } else if (idx == 2) {
-                    currentNotice.classList.remove('move');
-                    currentNotice.classList.remove('move2');
+                    this.isMove = false
+                    this.isMove2 = false
                     idx = 0;
                 }
             },2000);
