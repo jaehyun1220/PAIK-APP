@@ -79,298 +79,300 @@
 </template>
 
 <script>
-    export default {
-        name:'order-wrap',
-        data() {
-            return {
-                num :0,
-                idx : 0,
-                isActive: false,
-                a_modal:false,
-                o_modal:false,
-                t_num : 0, 
-                t_price : 0,
-                it_price : 0,
-                s_image : '',
-                s_menu : [],
-                s_price : 0,
-                o_cart : [],
-                category : [
-                    {
-                        sort : "coffee", 
-                        name : '커피',
-                        menu : [{
-                                image : require("../../assets/image/menu/1_1.png"),
-                                name : 'HOT-달달연유라떼',
-                                price : '3700',
-                            },{
-                                image : require("../../assets/image/menu/1_2.png"),
-                                name : 'HOT-바닐라라떼',
-                                price : '3500',
-                            },{
-                                image : require("../../assets/image/menu/1_3.png"),
-                                name : 'HOT-빽s라떼',
-                                price : '3000',
-                            },{
-                                image : require("../../assets/image/menu/1_4.png"),
-                                name : 'HOT-쑥쑥라떼',
-                                price : '3500',
-                            },{
-                                image : require("../../assets/image/menu/1_5.png"),
-                                name : 'HOT-완전초코',
-                                price : '3500',
-                            },{
-                                image : require("../../assets/image/menu/1_6.png"),
-                                name : 'HOT-카라멜마키아또',
-                                price : '3500',
-                            },{
-                                image : require("../../assets/image/menu/1_7.png"),
-                                name : '콜드브루',
-                                price : '4000',
-                            },{
-                                image : require("../../assets/image/menu/1_8.png"),
-                                name : '콜드브루연유라떼',
-                                price : '5500',
-                            },{
-                                image : require("../../assets/image/menu/1_9.png"),
-                                name : '콜드브루흑당라떼',
-                                price : '5500',
-                            },{
-                                image : require("../../assets/image/menu/1_10.png"),
-                                name : '블랙펄라떼',
-                                price : '3700',
-                            },{
-                                image : require("../../assets/image/menu/1_11.png"),
-                                name : '블랙펄카페라떼',
-                                price : '4200',
-                            },{
-                                image : require("../../assets/image/menu/1_12.png"),
-                                name : '빽s-라떼ICED',
-                                price : '3000',
-                        }]
-                    },
-                    {
-                        sort : "cappuccino",
-                        name : '빽스치노',
-                        menu : [{
-                                image : require("../../assets/image/menu/2_1.png"),
-                                name : '쿠키크런치빽스치노-BASIC',
-                                price : '3800',
-                            },{
-                                image : require("../../assets/image/menu/2_2.png"),
-                                name : '쿠키크런치빽스치노-SOFT',
-                                price : '4300',
-                            },{
-                                image : require("../../assets/image/menu/2_3.png"),
-                                name : '쑥쑥빽스치노-BASIC',
-                                price : '400',
-                            },{
-                                image : require("../../assets/image/menu/2_4.png"),
-                                name : '쑥쑥빽스치노-SOFT',
-                                price : '4500',
-                            },{
-                                image : require("../../assets/image/menu/2_5.png"),
-                                name : '완전딸기바나나-BASIC',
-                                price : '3800',
-                            },{
-                                image : require("../../assets/image/menu/2_6.png"),
-                                name : '완전딸기바나나-SOFT',
-                                price : '4300',
-                            },{
-                                image : require("../../assets/image/menu/2_7.png"),
-                                name : '완전초코바나나-SOFT',
-                                price : '3800',
-                            },{
-                                image : require("../../assets/image/menu/2_8.png"),
-                                name : '완전초코바나나-BASIC',
-                                price : '4300',
-                            },{
-                                image : require("../../assets/image/menu/2_9.png"),
-                                name : '원조빽스치노-BASIC',
-                                price : '3300',
-                            },{
-                                image : require("../../assets/image/menu/2_10.png"),
-                                name : '원조빽스치노-SOFT',
-                                price : '3800',
-                            },{
-                                image : require("../../assets/image/menu/2_11.png"),
-                                name : '민트초코빽스치노-BASIC',
-                                price : '3800',
-                            },{
-                                image : require("../../assets/image/menu/2_12.png"),
-                                name : '민트초코빽스치노-SOFT',
-                                price : '4300',
-                        }]
-                    },
-                    {
-                        sort : "juice",
-                        name : '주스/에이드',
-                        menu : [{
-                            image : require("../../assets/image/menu/3_1.png"),
-                            name : 'ICED-달달연유라떼',
+import { eventBus } from '@/main.js'
+export default {
+    name:'order-wrap',
+    data() {
+        return {
+            num :0,
+            idx : 0,
+            isActive: false,
+            a_modal:false,
+            o_modal:false,
+            t_num : 0, 
+            t_price : 0,
+            it_price : 0,
+            s_image : '',
+            s_menu : [],
+            s_price : 0,
+            o_cart : [],
+            category : [
+                {
+                    sort : "coffee", 
+                    name : '커피',
+                    menu : [{
+                            image : require("../../assets/image/menu/1_1.png"),
+                            name : 'HOT-달달연유라떼',
                             price : '3700',
                         },{
-                            image : require("../../assets/image/menu/3_2.png"),
-                            name : 'ICED-레몬얼그레이티',
+                            image : require("../../assets/image/menu/1_2.png"),
+                            name : 'HOT-바닐라라떼',
                             price : '3500',
                         },{
-                            image : require("../../assets/image/menu/3_3.png"),
-                            name : 'ICED-바닐라라떼',
+                            image : require("../../assets/image/menu/1_3.png"),
+                            name : 'HOT-빽s라떼',
+                            price : '3000',
+                        },{
+                            image : require("../../assets/image/menu/1_4.png"),
+                            name : 'HOT-쑥쑥라떼',
                             price : '3500',
                         },{
-                            image : require("../../assets/image/menu/3_4.png"),
-                            name : 'ICED-삼라봉티',
-                            price : '4500',
-                        },{
-                            image : require("../../assets/image/menu/3_5.png"),
-                            name : 'ICED-쑥쑥라떼',
+                            image : require("../../assets/image/menu/1_5.png"),
+                            name : 'HOT-완전초코',
                             price : '3500',
                         },{
-                            image : require("../../assets/image/menu/3_6.png"),
-                            name : 'ICED-완전초코',
+                            image : require("../../assets/image/menu/1_6.png"),
+                            name : 'HOT-카라멜마키아또',
                             price : '3500',
                         },{
-                            image : require("../../assets/image/menu/3_7.png"),
-                            name : 'ICED-자몽티',
+                            image : require("../../assets/image/menu/1_7.png"),
+                            name : '콜드브루',
                             price : '4000',
                         },{
-                            image : require("../../assets/image/menu/3_8.png"),
-                            name : 'ICED-페퍼민트티',
-                            price : '2500',
+                            image : require("../../assets/image/menu/1_8.png"),
+                            name : '콜드브루연유라떼',
+                            price : '5500',
                         },{
-                            image : require("../../assets/image/menu/3_9.png"),
-                            name : 'ICED-피치우롱스위티',
+                            image : require("../../assets/image/menu/1_9.png"),
+                            name : '콜드브루흑당라떼',
+                            price : '5500',
+                        },{
+                            image : require("../../assets/image/menu/1_10.png"),
+                            name : '블랙펄라떼',
+                            price : '3700',
+                        },{
+                            image : require("../../assets/image/menu/1_11.png"),
+                            name : '블랙펄카페라떼',
+                            price : '4200',
+                        },{
+                            image : require("../../assets/image/menu/1_12.png"),
+                            name : '빽s-라떼ICED',
                             price : '3000',
+                    }]
+                },
+                {
+                    sort : "cappuccino",
+                    name : '빽스치노',
+                    menu : [{
+                            image : require("../../assets/image/menu/2_1.png"),
+                            name : '쿠키크런치빽스치노-BASIC',
+                            price : '3800',
                         },{
-                            image : require("../../assets/image/menu/3_10.png"),
-                            name : '딸기라떼',
-                            price : '3500',
+                            image : require("../../assets/image/menu/2_2.png"),
+                            name : '쿠키크런치빽스치노-SOFT',
+                            price : '4300',
                         },{
-                            image : require("../../assets/image/menu/3_11.png"),
-                            name : '밀크쉐이크',
-                            price : '3500',
+                            image : require("../../assets/image/menu/2_3.png"),
+                            name : '쑥쑥빽스치노-BASIC',
+                            price : '400',
                         },{
-                            image : require("../../assets/image/menu/3_12.png"),
-                            name : '빽사이즈-아샷추',
-                            price : '3500',
-                        }]
-                    },
-                    {
-                        sort : "dessert",
-                        name : '디저트',
-                        menu : [{
-                            image : require("../../assets/image/menu/4_1.png"),
-                            name : '공공치빵초코맛',
-                            price : '2500',
+                            image : require("../../assets/image/menu/2_4.png"),
+                            name : '쑥쑥빽스치노-SOFT',
+                            price : '4500',
                         },{
-                            image : require("../../assets/image/menu/4_2.png"),
-                            name : '공공치빵파맛',
-                            price : '2500',
+                            image : require("../../assets/image/menu/2_5.png"),
+                            name : '완전딸기바나나-BASIC',
+                            price : '3800',
                         },{
-                            image : require("../../assets/image/menu/4_3.png"),
-                            name : '긴페스츄리와플',
-                            price : '2500',
+                            image : require("../../assets/image/menu/2_6.png"),
+                            name : '완전딸기바나나-SOFT',
+                            price : '4300',
                         },{
-                            image : require("../../assets/image/menu/4_4.png"),
-                            name : '네모머핀초콜릿',
-                            price : '2300',
+                            image : require("../../assets/image/menu/2_7.png"),
+                            name : '완전초코바나나-SOFT',
+                            price : '3800',
                         },{
-                            image : require("../../assets/image/menu/4_5.png"),
-                            name : '노말한소프트',
-                            price : '2000',
+                            image : require("../../assets/image/menu/2_8.png"),
+                            name : '완전초코바나나-BASIC',
+                            price : '4300',
                         },{
-                            image : require("../../assets/image/menu/4_6.png"),
-                            name : '달고나크런치',
-                            price : '2500',
+                            image : require("../../assets/image/menu/2_9.png"),
+                            name : '원조빽스치노-BASIC',
+                            price : '3300',
                         },{
-                            image : require("../../assets/image/menu/4_7.png"),
-                            name : '크리미단팥빵',
-                            price : '1800',
+                            image : require("../../assets/image/menu/2_10.png"),
+                            name : '원조빽스치노-SOFT',
+                            price : '3800',
                         },{
-                            image : require("../../assets/image/menu/4_8.png"),
-                            name : '크리미슈',
-                            price : '1800',
+                            image : require("../../assets/image/menu/2_11.png"),
+                            name : '민트초코빽스치노-BASIC',
+                            price : '3800',
                         },{
-                            image : require("../../assets/image/menu/4_9.png"),
-                            name : '큰마들렌오리지널',
-                            price : '2800',
-                        },{
-                            image : require("../../assets/image/menu/4_10.png"),
-                            name : '빽그램핫도그',
-                            price : '3500',
-                        },{
-                            image : require("../../assets/image/menu/4_11.png"),
-                            name : '사라다빵',
-                            price : '3000',
-                        },{
-                            image : require("../../assets/image/menu/4_12.png"),
-                            name : '소세지빵',
-                            price : '3000',
-                        }]
-                    },
-                ],
-                
+                            image : require("../../assets/image/menu/2_12.png"),
+                            name : '민트초코빽스치노-SOFT',
+                            price : '4300',
+                    }]
+                },
+                {
+                    sort : "juice",
+                    name : '주스/에이드',
+                    menu : [{
+                        image : require("../../assets/image/menu/3_1.png"),
+                        name : 'ICED-달달연유라떼',
+                        price : '3700',
+                    },{
+                        image : require("../../assets/image/menu/3_2.png"),
+                        name : 'ICED-레몬얼그레이티',
+                        price : '3500',
+                    },{
+                        image : require("../../assets/image/menu/3_3.png"),
+                        name : 'ICED-바닐라라떼',
+                        price : '3500',
+                    },{
+                        image : require("../../assets/image/menu/3_4.png"),
+                        name : 'ICED-삼라봉티',
+                        price : '4500',
+                    },{
+                        image : require("../../assets/image/menu/3_5.png"),
+                        name : 'ICED-쑥쑥라떼',
+                        price : '3500',
+                    },{
+                        image : require("../../assets/image/menu/3_6.png"),
+                        name : 'ICED-완전초코',
+                        price : '3500',
+                    },{
+                        image : require("../../assets/image/menu/3_7.png"),
+                        name : 'ICED-자몽티',
+                        price : '4000',
+                    },{
+                        image : require("../../assets/image/menu/3_8.png"),
+                        name : 'ICED-페퍼민트티',
+                        price : '2500',
+                    },{
+                        image : require("../../assets/image/menu/3_9.png"),
+                        name : 'ICED-피치우롱스위티',
+                        price : '3000',
+                    },{
+                        image : require("../../assets/image/menu/3_10.png"),
+                        name : '딸기라떼',
+                        price : '3500',
+                    },{
+                        image : require("../../assets/image/menu/3_11.png"),
+                        name : '밀크쉐이크',
+                        price : '3500',
+                    },{
+                        image : require("../../assets/image/menu/3_12.png"),
+                        name : '빽사이즈-아샷추',
+                        price : '3500',
+                    }]
+                },
+                {
+                    sort : "dessert",
+                    name : '디저트',
+                    menu : [{
+                        image : require("../../assets/image/menu/4_1.png"),
+                        name : '공공치빵초코맛',
+                        price : '2500',
+                    },{
+                        image : require("../../assets/image/menu/4_2.png"),
+                        name : '공공치빵파맛',
+                        price : '2500',
+                    },{
+                        image : require("../../assets/image/menu/4_3.png"),
+                        name : '긴페스츄리와플',
+                        price : '2500',
+                    },{
+                        image : require("../../assets/image/menu/4_4.png"),
+                        name : '네모머핀초콜릿',
+                        price : '2300',
+                    },{
+                        image : require("../../assets/image/menu/4_5.png"),
+                        name : '노말한소프트',
+                        price : '2000',
+                    },{
+                        image : require("../../assets/image/menu/4_6.png"),
+                        name : '달고나크런치',
+                        price : '2500',
+                    },{
+                        image : require("../../assets/image/menu/4_7.png"),
+                        name : '크리미단팥빵',
+                        price : '1800',
+                    },{
+                        image : require("../../assets/image/menu/4_8.png"),
+                        name : '크리미슈',
+                        price : '1800',
+                    },{
+                        image : require("../../assets/image/menu/4_9.png"),
+                        name : '큰마들렌오리지널',
+                        price : '2800',
+                    },{
+                        image : require("../../assets/image/menu/4_10.png"),
+                        name : '빽그램핫도그',
+                        price : '3500',
+                    },{
+                        image : require("../../assets/image/menu/4_11.png"),
+                        name : '사라다빵',
+                        price : '3000',
+                    },{
+                        image : require("../../assets/image/menu/4_12.png"),
+                        name : '소세지빵',
+                        price : '3000',
+                    }]
+                },
+            ],
+            
+        }
+    },
+    methods: {
+        selected(idx, index) {
+            this.num = 0
+            this.a_modal = !this.a_modal
+            this.s_menu = this.category[idx].menu[index].name
+            this.s_image = this.category[idx].menu[index].image
+            this.s_price = this.category[idx].menu[index].price
+        },
+        open() {
+            this.isActive = !this.isActive
+        },
+        close() {
+            this.a_modal = !this.a_modal
+            this.num = 0;
+        },
+        plus() {
+            this.num++;
+        },
+        minus() {
+            if (this.num == 0) {
+                this.num = 0;
+            } else {
+                this.num--;
             }
         },
-        methods: {
-            selected(idx, index) {
-                this.num = 0
-                this.a_modal = !this.a_modal
-                this.s_menu = this.category[idx].menu[index].name
-                this.s_image = this.category[idx].menu[index].image
-                this.s_price = this.category[idx].menu[index].price
-            },
-            open() {
-                this.isActive = !this.isActive
-            },
-            close() {
-                this.a_modal = !this.a_modal
-                this.num = 0;
-            },
-            plus() {
-                this.num++;
-            },
-            minus() {
-                if (this.num == 0) {
-                    this.num = 0;
-                } else {
-                    this.num--;
-                }
-            },
-            del(index) {
-                this.o_cart.splice(index, 1)
-                if(this.o_cart.length == 0) {
-                    this.t_num = 0;
-                    this.t_price = 0;
-                }
-            },
-            add() {
-                if (this.num != 0) {
-                    this.a_modal = !this.a_modal
-                    this.o_modal = true
-                    let item =  {
-                        l_menu : this.s_menu,
-                        l_price : this.s_price,
-                        l_image : this.s_image,
-                        l_num : this.num
-                        
-                    }
-                    this.o_cart.push(item)
-                    //console.log(JSON.stringify(this.o_cart))
-                    //this.t_num = item.l_num
-                    //this.t_price = item.l_price * item.l_num
-                    this.it_price = item.l_price * item.l_num
-                    console.log(this.it_price)
-                }
-            },
-            smart() {
-                localStorage.setItem('co_cart',JSON.stringify(this.o_cart))
-            },
+        del(index) {
+            this.o_cart.splice(index, 1)
+            if(this.o_cart.length == 0) {
+                this.t_num = 0;
+                this.t_price = 0;
+            }
         },
-    }
+        add() {
+            if (this.num != 0) {
+                this.a_modal = !this.a_modal
+                this.o_modal = true
+                let item =  {
+                    l_menu : this.s_menu,
+                    l_price : this.s_price,
+                    l_image : this.s_image,
+                    l_num : this.num
+                    
+                }
+                this.o_cart.push(item)
+                //console.log(JSON.stringify(this.o_cart))
+                //this.t_num = item.l_num
+                //this.t_price = item.l_price * item.l_num
+                this.it_price = item.l_price * item.l_num
+                console.log(this.it_price)
+            }
+        },
+        smart() {
+            eventBus.$emit('smartSend', new Date())
+            localStorage.setItem('co_cart',JSON.stringify(this.o_cart))
+        },
+    },
+}
 </script>
 <style scoped>
-    .container {padding: 64px 0px 85px; width: 100%; height: 100%;background-color: #F2F2F2;}
+    .container {padding: 64px 0px 85px; width: 100%; background-color: #F2F2F2;}
         .search {margin: 7px 0; border:1px solid #ececec; background-color: #fff; box-shadow: 0px 5px 10px rgba(0, 0, 0, .1); display: flex; justify-content: center; align-items: center; padding: 7px;}
             input[type="text"] {border:none; width: 100%;}
             input[type="text"]::placeholder {font-size: .8rem;}
