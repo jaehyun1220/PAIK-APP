@@ -37,21 +37,29 @@
         </div>
         <div class="c_list">
             <h2>주문내역</h2>
-            <ul class="thead">
+            <ul class="thead" >
                 <li>품명</li>
-                <li>단가</li>
-                <li>수량</li>
-                <li>합계</li>
+                <li>
+                    <ul>
+                        <li>단가</li>
+                        <li>수량</li>
+                        <li>합계</li>
+                    </ul>
+                </li>
             </ul>
-            <ul v-for="(c_confirms, index) of c_confirm" v-bind:key="index">
-                <li> {{c_confirms.l_menu}} </li>
-                <li>{{}}원</li>
-                <li>{{}}</li>
-                <li>{{}}원</li>
+            <ul class="tbody order_history" v-for="(selectedMenu, index) of receiveData" v-bind:key="index">
+                <li> {{selectedMenu.l_menu}} </li>
+                <li>
+                    <ul class="order_history">
+                        <li>{{selectedMenu.l_price.toLocaleString('ko-KR')}}원</li>
+                        <li>{{selectedMenu.l_num}}개</li>
+                        <li>{{selectedMenu.it_price.toLocaleString('ko-KR')}}원</li>
+                    </ul>
+                </li>
             </ul>
             <div>
                 <p>총 주문 금액</p>
-                <span>{{}}원</span>
+                <span>원</span>
             </div>
         </div>
     </div>
@@ -67,26 +75,20 @@ export default {
             co_menu : '',
             isActive : false,
             isActive2 : false,
-            c_confirm : JSON.parse(localStorage.getItem('co_cart')) || '',
-            date : null
+            receiveData: null,
         }
     },
-    methods: {
-        
-    },
-    beforeCreate() {
-        
+    methods : {
     },
     created() {
-        eventBus.$on('smartSend',(asd) => {
-            this.date = asd 
+        eventBus.$on('sendData', (selectedMenu) => {
+            this.receiveData = selectedMenu
         })
-        
     },
     mounted() {
         setTimeout(() => this.isActive = !this.isActive, 5000);
         setTimeout(() => this.isActive2 = !this.isActive2, 50000);
-    }
+    },
 }
 </script>
 
@@ -116,11 +118,12 @@ export default {
 
         .c_list {padding: 12px; border-top: 1px dotted #e4e4e4; border-bottom: 1px dotted #e4e4e4;}
         .c_list > h2 {margin-bottom: 12px;}
-        .c_list > ul {display: flex; justify-content: space-between; align-items: center; padding: 5px; margin: 5px 0;}
-        .c_list > ul.thead {padding: 6px; background-color: #f2f2f2;}
+        .c_list > ul, .c_list > ul > li > ul {display: flex; justify-content: space-between; align-items: center;}
+        .c_list > ul { padding: 5px;}
+        .c_list > ul.thead {padding: 6px; background-color: #f2f2f2; margin-bottom: 5px;}
         .c_list > ul.thead > li {color: #696969;}
-        .c_list > ul > li {font-size: .9rem;}
-        .c_list > ul > li:first-child {width: 50%;}
+        .c_list > ul > li {font-size: .9rem; display: flex; justify-content: space-between; align-items: center;flex: 1 1 25%;}
+        .c_list > ul > li > ul {width: 100%;}
         .c_list > div {display: flex; justify-content: space-between; align-items: center; padding: 5px;}
         .c_list > div > p, .c_list > div > span {font-size: .9rem; color: #333; font-weight: 600;}
         

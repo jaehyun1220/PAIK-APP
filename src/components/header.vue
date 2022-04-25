@@ -83,24 +83,26 @@ export default {
     name: 'header_component',
     data () {
         return {
-        point : { stamp : 0, coupon : 0,},
-        on : false,
+            point : { stamp : 0, coupon : 0,},
+            on : false,
+            s_count : 0,
+            c_count : 0
         }
     },
     methods : {
         logOut() {
-        localStorage.clear();
-        if(localStorage.length == 0) {
-            window.location.reload();
-        }
+            localStorage.clear();
+            if(localStorage.length == 0) {
+                window.location.reload();
+            }
         },
         open() {
-        this.on = !this.on
+            this.on = !this.on
         },
         close() {
-        this.on = !this.on
-        }
-    }
+            this.on = !this.on
+        },
+    },
 }
 </script>
 

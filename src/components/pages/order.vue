@@ -38,7 +38,7 @@
                                 <span>수량</span>
                                 <div class="as_add">
                                     <box-icon name='minus-circle' color="#b3b3b3" v-on:click="minus"></box-icon>
-                                    <span>{{ this.num }}</span>
+                                    <span>{{ this.s_num }}</span>
                                     <box-icon name='plus-circle' color="#b3b3b3" v-on:click="plus"></box-icon>
                                 </div>
                             </li>
@@ -51,11 +51,13 @@
         <div class="order" v-if="o_modal" :class="{hide:isActive}">
             <div class="o_preview">
                 <div class="o_txt">
-                    <p>총<span>{{ t_num }}</span>개</p>
-                    <p><span> {{ t_price}} </span>원</p>
+                    <p>총<span>{{ t_price }}</span>개</p>
+                    <p><span> {{ t_num}} </span>원</p>
                 </div>
                 <box-icon name='chevron-down' color="#737373" v-on:click="open"></box-icon>
-                <div class="o_btn_01">주문하기</div>
+                <div v-on:click="smart">
+                    <router-link to="./confirm" class="o_btn_01">주문하기</router-link>
+                </div>
             </div>
             <div class="o_content">
                 <transition-group name="horizontal">
@@ -65,7 +67,7 @@
                             <p>{{ o_carts.l_menu}}</p>
                         </div>
                         <div class="o_price">
-                            <p>{{ o_carts.l_price }}원 x {{ o_carts.l_num }}</p>
+                            <p>{{ o_carts.l_price.toLocaleString('ko-KR') }}원 x {{ o_carts.l_num }}</p>
                             <box-icon name='x-circle' color="#b3b3b3" v-on:click="del(index)"></box-icon>
                         </div>
                     </div>
@@ -84,7 +86,6 @@ export default {
     name:'order-wrap',
     data() {
         return {
-            num :0,
             idx : 0,
             isActive: false,
             a_modal:false,
@@ -95,6 +96,7 @@ export default {
             s_image : '',
             s_menu : [],
             s_price : 0,
+            s_num :0,
             o_cart : [],
             category : [
                 {
@@ -310,13 +312,12 @@ export default {
                     }]
                 },
             ],
-            
         }
     },
     methods: {
         selected(idx, index) {
-            this.num = 0
             this.a_modal = !this.a_modal
+            this.s_num = 0
             this.s_menu = this.category[idx].menu[index].name
             this.s_image = this.category[idx].menu[index].image
             this.s_price = this.category[idx].menu[index].price
@@ -326,10 +327,10 @@ export default {
         },
         close() {
             this.a_modal = !this.a_modal
-            this.num = 0;
+            this.s_num = 0;
         },
         plus() {
-            this.num++;
+            this.s_num++;
         },
         minus() {
             if (this.num == 0) {
@@ -346,27 +347,33 @@ export default {
             }
         },
         add() {
-            if (this.num != 0) {
-                this.a_modal = !this.a_modal
-                this.o_modal = true
+            if (this.s_num != 0) {
                 let item =  {
                     l_menu : this.s_menu,
                     l_price : this.s_price,
                     l_image : this.s_image,
-                    l_num : this.num
-                    
+                    l_num : this.s_num,
+                    it_price : '',
                 }
+                item.it_price = item.l_price * item.l_num
+
+                this.a_modal = !this.a_modal
+                this.o_modal = true
                 this.o_cart.push(item)
-                //console.log(JSON.stringify(this.o_cart))
-                //this.t_num = item.l_num
-                //this.t_price = item.l_price * item.l_num
-                this.it_price = item.l_price * item.l_num
-                console.log(this.it_price)
+
+                const numbers = this.o_cart;
+
+                const sum1 = numbers.reduce((a, b) => {
+                    console.log("누산 : " + a);
+                    console.log("값 : " + b.l_num);
+                    return a + b.l_num
+                    }, 0);
+                console.log('sum1 =', sum1);
             }
         },
         smart() {
-            eventBus.$emit('smartSend', new Date())
-            localStorage.setItem('co_cart',JSON.stringify(this.o_cart))
+            const selectedMenu = this.o_cart
+            eventBus.$emit('sendData', selectedMenu)
         },
     },
 }
@@ -413,6 +420,7 @@ export default {
         .order.hide box-icon {transform: rotate(180deg);}
             .o_preview {display: flex; justify-content: space-between; align-items: center; background-color: #333; border-radius: 15px 15px 0 0; height: 65px; width: 100%;}
             .o_preview box-icon {margin-top: auto; margin-bottom: 12px;}
+            .o_preview a {display: block;}
 
             .o_content {max-height: 30vh; overflow-y: auto; transition: all .3s; background-color: #fff;}
                 .o_list {display: flex; justify-content: space-between; align-items: center; padding: 0 12px; border-bottom: 1px solid #e4e4e4;}

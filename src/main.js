@@ -4,7 +4,8 @@ import VueRouter from 'vue-router';
 import { mainPage, orderPage, confirmPage } from './components/pages'
 
 export const eventBus = new Vue()
-Vue.config.productionTip = true
+
+Vue.config.productionTip = false
 
 Vue.use(VueRouter)
 
