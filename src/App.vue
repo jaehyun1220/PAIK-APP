@@ -44,7 +44,7 @@ export default {
 </script>
 
 <style>
-  #app { color: #2c3e50; width: 500px; margin: auto; background: #f2f2f2;}
+  #app { color: #2c3e50; width: 500px; margin: auto; background: #f2f2f2; height: 100vh;}
   .login_container > img {position: fixed; top: 50%; left: 0; transform: translateY(-50%); z-index: -1; filter:blur(2px) brightness(75%); width: 100%;}
   .logout_container {height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;}
   @media (max-width:991px) {
