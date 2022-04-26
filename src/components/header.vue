@@ -23,8 +23,8 @@
                     </div>
                     <div class="m_coupon">
                         <ul>
-                            <li>
-                                <router-link to="./section">
+                            <li v-on:click="ing">
+                                <router-link to="/">
                                     <img src="../assets/image/menu_01.png" alt="stamp">
                                     <div class="c_txt">
                                         <p>스탬프</p>
@@ -32,8 +32,8 @@
                                     </div>
                                 </router-link>
                             </li>
-                            <li>
-                                <router-link to="./section">
+                            <li v-on:click="ing">
+                                <router-link to="/">
                                     <img src="../assets/image/menu_02.png" alt="coupon">
                                     <div class="c_txt">
                                         <p>마이쿠폰</p>
@@ -46,25 +46,25 @@
                     <div class="m_list">
                         <ul>
                             <li>
-                                <router-link to="./section">
+                                <router-link to="./order">
                                     <span>스마트오더 주문내역</span>
                                     <box-icon name='chevron-right' color="#7d7d7d"></box-icon>
                                 </router-link>
                             </li>
-                            <li>
-                                <router-link to="./section">
+                            <li v-on:click="ing">
+                                <router-link to="/">
                                     <span>주변매장 찾기</span>
                                     <box-icon name='chevron-right' color="#7d7d7d"></box-icon>
                                 </router-link>
                             </li>
-                            <li>
-                                <router-link to="./section">
+                            <li v-on:click="ing">
+                                <router-link to="/">
                                     <span>기프트샵</span>
                                     <box-icon name='chevron-right' color="#7d7d7d"></box-icon>
                                 </router-link>
                             </li>
-                            <li>
-                                <router-link to="./section">
+                            <li v-on:click="ing">
+                                <router-link to="/">
                                     <span>개인정보 변경</span>
                                     <box-icon name='chevron-right' color="#7d7d7d"></box-icon>
                                 </router-link>
@@ -79,6 +79,7 @@
 </template>
 
 <script>
+
 export default {
     name: 'header_component',
     data () {
@@ -102,6 +103,10 @@ export default {
         close() {
             this.on = !this.on
         },
+        ing() {
+            alert('준비중입니다.');
+            return false
+        }
     },
 }
 </script>

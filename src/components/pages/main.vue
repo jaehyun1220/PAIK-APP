@@ -43,8 +43,8 @@
                             <span>스마트오더</span>
                         </router-link>
                     </li>
-                    <li>
-                        <router-link to="./order">
+                    <li v-on:click="alertMessage">
+                        <router-link to="">
                             <img src="../../assets/image/sub_menu_01.png" alt="">
                             <span>기프트샵</span>
                         </router-link>
