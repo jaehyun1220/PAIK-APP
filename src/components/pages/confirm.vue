@@ -47,19 +47,19 @@
                     </ul>
                 </li>
             </ul>
-            <ul class="tbody order_history" v-for="(selectedMenu, index) of receiveData" v-bind:key="index">
-                <li> {{selectedMenu.l_menu}} </li>
+            <ul class="tbody order_history" v-for="(t_cart, index) of receiveData" v-bind:key="index">
+                <li> {{t_cart.l_menu}} </li>
                 <li>
                     <ul class="order_history">
-                        <li>{{selectedMenu.l_price.toLocaleString('ko-KR')}}원</li>
-                        <li>{{selectedMenu.l_num}}개</li>
-                        <li>{{selectedMenu.it_price.toLocaleString('ko-KR')}}원</li>
+                        <li>{{t_cart.l_price.toLocaleString('ko-KR')}}원</li>
+                        <li>{{t_cart.l_num}}개</li>
+                        <li>{{t_cart.it_price.toLocaleString('ko-KR')}}원</li>
                     </ul>
                 </li>
             </ul>
             <div>
                 <p>총 주문 금액</p>
-                <span>원</span>
+                <span>{{ t_price.toLocaleString('ko-KR') }}원</span>
             </div>
         </div>
     </div>
@@ -76,13 +76,17 @@ export default {
             isActive : false,
             isActive2 : false,
             receiveData: null,
+            t_price : 0,
         }
     },
     methods : {
     },
     created() {
-        eventBus.$on('sendData', (selectedMenu) => {
-            this.receiveData = selectedMenu
+        eventBus.$on('sendData', (t_cart) => {
+            this.receiveData = t_cart
+            this.t_price = this.receiveData.reduce((a, b) => {
+                return a + b.it_price
+            }, 0);
         })
     },
     mounted() {

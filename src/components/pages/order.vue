@@ -51,8 +51,8 @@
         <div class="order" v-if="o_modal" :class="{hide:isActive}">
             <div class="o_preview">
                 <div class="o_txt">
-                    <p>총<span>{{ t_price }}</span>개</p>
-                    <p><span> {{ t_num}} </span>원</p>
+                    <p>총<span>{{ t_num }}</span>개</p>
+                    <p><span> {{ t_price}} </span>원</p>
                 </div>
                 <box-icon name='chevron-down' color="#737373" v-on:click="open"></box-icon>
                 <div v-on:click="smart">
@@ -361,14 +361,17 @@ export default {
                 this.o_modal = true
                 this.o_cart.push(item)
 
-                const numbers = this.o_cart;
+                const t_cart = this.o_cart;
 
-                const sum1 = numbers.reduce((a, b) => {
-                    console.log("누산 : " + a);
-                    console.log("값 : " + b.l_num);
+                this.t_num = t_cart.reduce((a, b) => {
+                    //console.log("누산 : " + a);
+                    //console.log("값 : " + b.l_num);
                     return a + b.l_num
                     }, 0);
-                console.log('sum1 =', sum1);
+                //console.log('this.t_num =', this.t_num);
+                this.t_price = t_cart.reduce((a, b) => {
+                    return a + b.it_price
+                    }, 0);
             }
         },
         smart() {
