@@ -52,7 +52,7 @@
             <div class="o_preview">
                 <div class="o_txt">
                     <p>총<span>{{ t_num }}</span>개</p>
-                    <p><span> {{ t_price}} </span>원</p>
+                    <p><span> {{ t_price.toLocaleString('ko-KR')}} </span>원</p>
                 </div>
                 <box-icon name='chevron-down' color="#737373" v-on:click="open"></box-icon>
                 <div v-on:click="smart">
@@ -375,8 +375,8 @@ export default {
             }
         },
         smart() {
-            const selectedMenu = this.o_cart
-            eventBus.$emit('sendData', selectedMenu)
+            const t_cart = this.o_cart
+            eventBus.$emit('sendData', t_cart)
         },
     },
 }
