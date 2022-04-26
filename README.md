@@ -2,6 +2,11 @@
 
 ⚡VUE
 
+## 주요기능
+```
+스마트오더, 가까운매장 찾기
+```
+
 ## Project setup
 ```
 npm install
