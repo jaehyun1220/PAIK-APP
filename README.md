@@ -1,6 +1,7 @@
 # PAIK
 
-⚡VUE
+⚡VUE - https://xee.netlify.app
+
 
 ## 주요기능
 ```
