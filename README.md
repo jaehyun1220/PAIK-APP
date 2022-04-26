@@ -1,6 +1,7 @@
 # PAIK
 
 ⚡VUE - https://xee.netlify.app
+admin/1234
 
 
 ## 주요기능
