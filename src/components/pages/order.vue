@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="search">
-            <input type="text" autofocus placeholder="메뉴를 검색하세요.">
+            <input type="text" autofocus placeholder="메뉴를 검색하세요." v-model="search" @input="onChange">
             <box-icon name='search' color="#071F60"></box-icon>
         </div>
         <div class="tabs">
@@ -29,7 +29,7 @@
                     <box-icon name='x' color="#071F60" v-on:click="close"></box-icon>
                     <div class="as_product">
                         <img :src="s_image" alt="">
-                        <p>{{ s_menu }}</p>
+                        <p>{{ s_name }}</p>
                         <p><span>{{ s_price }}</span>원</p>
                     </div>
                     <div class="as_option">
@@ -64,7 +64,7 @@
                     <div class="o_list" v-for="(o_carts, index) of o_cart" v-bind:key="index">
                         <div class="o_product">
                             <img :src="o_carts.l_image">
-                            <p>{{ o_carts.l_menu}}</p>
+                            <p>{{ o_carts.l_name}}</p>
                         </div>
                         <div class="o_price">
                             <p>{{ o_carts.l_price.toLocaleString('ko-KR') }}원 x {{ o_carts.l_num }}</p>
@@ -86,6 +86,7 @@ export default {
     name:'order-wrap',
     data() {
         return {
+            search: '',
             idx : 0,
             isActive: false,
             a_modal:false,
@@ -95,9 +96,11 @@ export default {
             it_price : 0,
             s_image : '',
             s_menu : [],
+            s_name : [],
             s_price : 0,
             s_num :0,
             o_cart : [],
+            oc_names : [],
             category : [
                 {
                     sort : "coffee", 
@@ -315,10 +318,13 @@ export default {
         }
     },
     methods: {
+        onChange() {
+            
+        },
         selected(idx, index) {
             this.a_modal = !this.a_modal
             this.s_num = 0
-            this.s_menu = this.category[idx].menu[index].name
+            this.s_name = this.category[idx].menu[index].name
             this.s_image = this.category[idx].menu[index].image
             this.s_price = this.category[idx].menu[index].price
         },
@@ -333,10 +339,10 @@ export default {
             this.s_num++;
         },
         minus() {
-            if (this.num == 0) {
-                this.num = 0;
+            if (this.s_num == 0) {
+                this.s_num = 0;
             } else {
-                this.num--;
+                this.s_num--;
             }
         },
         del(index) {
@@ -349,7 +355,7 @@ export default {
         add() {
             if (this.s_num != 0) {
                 let item =  {
-                    l_menu : this.s_menu,
+                    l_name : this.s_name,
                     l_price : this.s_price,
                     l_image : this.s_image,
                     l_num : this.s_num,
@@ -364,8 +370,8 @@ export default {
                 const t_cart = this.o_cart;
 
                 this.t_num = t_cart.reduce((a, b) => {
-                    //console.log("누산 : " + a);
-                    //console.log("값 : " + b.l_num);
+                    console.log("누적 계산 횟수: " + a);
+                    console.log("값 : " + (a + b.l_num));
                     return a + b.l_num
                     }, 0);
                 //console.log('this.t_num =', this.t_num);
@@ -379,13 +385,19 @@ export default {
             eventBus.$emit('sendData', t_cart)
         },
     },
+    mounted() {
+        this.oc_names.push(this.category[0].menu)
+        const fill = this.oc_names.filter(oc_name => oc_name > 3);
+        console.log(this.oc_names)
+        console.log(fill)
+    }
 }
 </script>
 <style scoped>
     .container {padding: 64px 0px 85px; width: 100%; background-color: #F2F2F2;}
         .search {margin: 7px 0; border:1px solid #ececec; background-color: #fff; box-shadow: 0px 5px 10px rgba(0, 0, 0, .1); display: flex; justify-content: center; align-items: center; padding: 7px;}
             input[type="text"] {border:none; width: 100%;}
-            input[type="text"]::placeholder {font-size: .8rem;}
+            input[type="text"]::placeholder {font-size: .95rem;}
 
         .tabs { overflow-x: auto; border-top: 1px solid #ececec; border-bottom: 1px solid #ececec; background-color: #fff; margin-bottom: 7px; box-shadow: 0px 5px 10px rgba(0, 0, 0, .1);}
         .tabs > ul {display: flex; justify-content: space-around; align-items: center;  width: 100%; padding:5px 0;}
