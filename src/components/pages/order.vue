@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="search">
-            <input type="text" autofocus placeholder="메뉴를 검색하세요." v-model="search" @input="onChange">
+            <input type="text" autofocus placeholder="메뉴를 검색하세요.">
             <box-icon name='search' color="#071F60"></box-icon>
         </div>
         <div class="tabs">
@@ -86,7 +86,6 @@ export default {
     name:'order-wrap',
     data() {
         return {
-            search: '',
             idx : 0,
             isActive: false,
             a_modal:false,
@@ -100,7 +99,6 @@ export default {
             s_price : 0,
             s_num :0,
             o_cart : [],
-            oc_names : [],
             category : [
                 {
                     sort : "coffee", 
@@ -385,12 +383,6 @@ export default {
             eventBus.$emit('sendData', t_cart)
         },
     },
-    mounted() {
-        this.oc_names.push(this.category[0].menu)
-        const fill = this.oc_names.filter(oc_name => oc_name > 3);
-        console.log(this.oc_names)
-        console.log(fill)
-    }
 }
 </script>
 <style scoped>
