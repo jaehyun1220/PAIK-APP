@@ -1,5 +1,8 @@
 <template>
     <div class="confirm">
+        <div class="loading_comp" v-if="loading">
+            <BounceLoader :loading="loading"></BounceLoader>
+        </div>
         <div class="c_progress">
             <ul>
                 <li class="c_progress_status active">
@@ -67,19 +70,22 @@
 
 <script>
 import { eventBus } from '@/main.js'
+import BounceLoader from 'vue-spinner/src/BounceLoader.vue'
 export default {
     name : 'confirm-wrap',
+    components : {
+        BounceLoader
+    },
     data() {
         return {
             s_name : '',
             co_menu : '',
+            loading : true,
             isActive : false,
             isActive2 : false,
             receiveData: null,
             t_price : 0,
         }
-    },
-    methods : {
     },
     created() {
         eventBus.$on('sendData', (t_cart) => {
@@ -88,6 +94,9 @@ export default {
                 return a + b.it_price
             }, 0);
         })
+        setTimeout (()=>{
+            this.loading = !this.loading
+        },500);
     },
     mounted() {
         setTimeout(() => this.isActive = !this.isActive, 5000);
@@ -97,6 +106,9 @@ export default {
 </script>
 
 <style scoped>
+    .loading_comp {position: fixed; width: 100%; height: 100vh; background-color: rgba(255, 255, 255, 1); top: 0; left: 0; z-index: 100;}
+        .v-spinner {position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
     .confirm {padding: 64px 0px 85px; background-color: #fff;}
         .c_progress {padding: 12px 0;}
         .c_progress > ul {padding: 25px 0; display: flex; justify-content: space-around; align-content: center; }

@@ -1,9 +1,15 @@
 <template>
     <div class="container">
+        <div class="loading_comp" v-if="loading">
+            <BounceLoader :loading="loading"></BounceLoader>
+        </div>
         <div class="search">
-            <input type="text" autofocus placeholder="메뉴를 검색하세요.">
+            <input type="text" autofocus placeholder="메뉴를 검색하세요." v-model="s_input" @input="submitAutoComplete">
             <box-icon name='search' color="#071F60"></box-icon>
         </div>
+        <ul class="autocomplete disabled">
+            <li v-for="(res, index) of result" v-bind:key="index" v-on:click="selected(idx, index)" v-on:keyup.enter="selected(idx, index)">{{ res }}</li>
+        </ul>
         <div class="tabs">
             <ul>
                 <li v-for="(categories, index) of category" v-bind:key="index" :class="{active: idx === index}">
@@ -11,7 +17,7 @@
                 </li>
             </ul>
         </div>
-        <div class="list" v-for="(coffees, index) of category[idx].menu" v-bind:key="index" v-on:click="selected(idx, index)">
+        <div class="list" v-for="(coffees, index) of category[idx].menu" v-bind:key="index" v-on:click="s_result(idx)">
             <img :src="coffees.image">
             <div class="l_txt">
                 <p>{{coffees.name}}</p>
@@ -82,16 +88,24 @@
 
 <script>
 import { eventBus } from '@/main.js'
+import BounceLoader from 'vue-spinner/src/BounceLoader.vue'
 export default {
     name:'order-wrap',
+    components : {
+        BounceLoader
+    },
     data() {
         return {
             idx : 0,
+            loading : true,
             isActive: false,
             a_modal:false,
             o_modal:false,
+            s_input: null,
+            result: null,
             t_num : 0, 
             t_price : 0,
+            t_name : null,
             it_price : 0,
             s_image : '',
             s_menu : [],
@@ -316,9 +330,6 @@ export default {
         }
     },
     methods: {
-        onChange() {
-            
-        },
         selected(idx, index) {
             this.a_modal = !this.a_modal
             this.s_num = 0
@@ -382,14 +393,55 @@ export default {
             const t_cart = this.o_cart
             eventBus.$emit('sendData', t_cart)
         },
+        submitAutoComplete() {
+            const autocomplete = document.querySelector(".autocomplete");
+            if (this.s_input) {
+                autocomplete.classList.remove("disabled");
+                this.result = this.t_name.filter((filter) => {
+                return filter.match(new RegExp(this.s_input, "i"));
+                });
+                console.log(this.result)
+            } else {
+                autocomplete.classList.add("disabled");
+            }
+        },
+        s_result(idx) {
+            this.a_modal = !this.a_modal
+            this.s_num = 0
+            this.s_name = this.category[idx].menu[idx].name
+            this.s_image = this.category[idx].menu[idx].image
+            this.s_price = this.category[idx].menu[idx].price
+            console.log(idx)
+        }
     },
+    created() {
+        const t_name  = [];
+        for (let i = 0; i < 4; i++) {
+            const t_depth_01 = this.category[i]
+            for (let j = 0; j < 12; j++) {
+                const t_depth_02 = t_depth_01.menu[j].name
+                t_name.push(t_depth_02)
+            }
+        }
+        this.t_name = t_name
+        setTimeout (()=>{
+            this.loading = !this.loading
+        },1000);
+    }
 }
 </script>
 <style scoped>
-    .container {padding: 64px 0px 85px; width: 100%; background-color: #F2F2F2;}
+    .container {padding: 64px 0px 85px; width: 100%; background-color: #F2F2F2; position: relative;}
+        .loading_comp {position: fixed; width: 100%; height: 100vh; background-color: rgba(255, 255, 255, 1); top: 0; left: 0; z-index: 100;}
+            .v-spinner {position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
         .search {margin: 7px 0; border:1px solid #ececec; background-color: #fff; box-shadow: 0px 5px 10px rgba(0, 0, 0, .1); display: flex; justify-content: center; align-items: center; padding: 7px;}
             input[type="text"] {border:none; width: 100%;}
             input[type="text"]::placeholder {font-size: .95rem;}
+
+        .autocomplete { background-color: #fff; box-shadow: 0px 5px 15px rgba(0, 0, 0, .2); max-height: 130px; overflow-y: scroll; border-radius: 5px; position: absolute; width: 100%; left: 0; top: 115px;}
+        .autocomplete > li {margin: 5px 0; padding: 7px; box-sizing: border-box;}
+        .autocomplete.disabled {display: none;}
 
         .tabs { overflow-x: auto; border-top: 1px solid #ececec; border-bottom: 1px solid #ececec; background-color: #fff; margin-bottom: 7px; box-shadow: 0px 5px 10px rgba(0, 0, 0, .1);}
         .tabs > ul {display: flex; justify-content: space-around; align-items: center;  width: 100%; padding:5px 0;}

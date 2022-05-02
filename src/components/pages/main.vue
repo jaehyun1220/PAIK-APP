@@ -1,5 +1,8 @@
 <template>
     <div class="container">
+        <div class="loading_comp" v-if="loading">
+            <BounceLoader :loading="loading"></BounceLoader>
+        </div>
         <slide/>
         <div class="main">
             <div class="m_menu">
@@ -77,16 +80,19 @@
 
 <script>
 import slide from './slide.vue'
+import BounceLoader from 'vue-spinner/src/BounceLoader.vue'
 let idx = 0;
 export default {
     name: 'main-wrap',
     components : {
         slide,
+        BounceLoader
     },
     data () {
         return {
             isMove : false,
             isMove2 : false,
+            loading : true,
             noticeList : [
                 { 
                     sort : '[공지]',
@@ -105,6 +111,9 @@ export default {
     },
     created () {
         this.rolling();
+        setTimeout (()=>{
+            this.loading = !this.loading
+        },3000);
     },
     methods : {
         rolling () {
@@ -125,12 +134,14 @@ export default {
         alertMessage() {
             alert('준비중입니다.')
         }
-    }
+    },
 }
 </script>
 
 <style scoped>
     .container {padding: 50px 0 85px 0; width: 100%; height: 100%;background-color: #F2F2F2;}
+        .loading_comp {position: fixed; width: 100%; height: 100vh; background-color: rgba(255, 255, 255, 1); top: 0; left: 0; z-index: 100;}
+            .v-spinner {position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); }
         .main {padding: 8px;}
 
             .m_menu {background-color: #fff; border-radius: 5px; padding: 12px; margin: 6px; box-shadow: 0px 5px 15px rgba(0, 0, 0, .05);}

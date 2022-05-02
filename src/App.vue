@@ -29,7 +29,7 @@ export default {
   },
   data() {
     return {
-      login : false
+      login : false,
     }
   },
   methods : {
@@ -38,8 +38,8 @@ export default {
     },
     LoginEventAuto() {
       this.login = !this.login
-    }
-  }
+    },
+  },
 }
 </script>
 

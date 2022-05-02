@@ -7,8 +7,11 @@
         name: 'section_component',
         data() {
             return {
-
+                
             }
         },
     }
 </script>
+
+<style scoped>
+</style>
