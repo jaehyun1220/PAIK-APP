@@ -8,7 +8,7 @@
             <box-icon name='search' color="#071F60"></box-icon>
         </div>
         <ul class="autocomplete disabled">
-            <li v-for="(res, index) of result" v-bind:key="index" v-on:click="selected(idx, index)" v-on:keyup.enter="selected(idx, index)">{{ res }}</li>
+            <li v-for="(res, index) of result" v-bind:key="index" v-on:click="s_result(idx)" v-on:keyup.enter="s_result(idx)">{{ res }}</li>
         </ul>
         <div class="tabs">
             <ul>
@@ -17,7 +17,7 @@
                 </li>
             </ul>
         </div>
-        <div class="list" v-for="(coffees, index) of category[idx].menu" v-bind:key="index" v-on:click="s_result(idx)">
+        <div class="list" v-for="(coffees, index) of category[idx].menu" v-bind:key="index" v-on:click="selected(idx, index)">
             <img :src="coffees.image">
             <div class="l_txt">
                 <p>{{coffees.name}}</p>
@@ -440,7 +440,7 @@ export default {
             input[type="text"]::placeholder {font-size: .95rem;}
 
         .autocomplete { background-color: #fff; box-shadow: 0px 5px 15px rgba(0, 0, 0, .2); max-height: 130px; overflow-y: scroll; border-radius: 5px; position: absolute; width: 100%; left: 0; top: 115px;}
-        .autocomplete > li {margin: 5px 0; padding: 7px; box-sizing: border-box;}
+        .autocomplete > li {margin: 5px 0; padding: 7px; box-sizing: border-box; font-size: .85rem;}
         .autocomplete.disabled {display: none;}
 
         .tabs { overflow-x: auto; border-top: 1px solid #ececec; border-bottom: 1px solid #ececec; background-color: #fff; margin-bottom: 7px; box-shadow: 0px 5px 10px rgba(0, 0, 0, .1);}
