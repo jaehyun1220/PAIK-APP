@@ -31,6 +31,9 @@
     "vuetify-loader": "^1.7.0"
   },
   "eslintConfig": {
+    "globals": {
+      "kakao": false
+    },
     "root": true,
     "env": {
       "node": true

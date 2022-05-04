@@ -45,14 +45,14 @@
                     </div>
                     <div class="m_list">
                         <ul>
-                            <li>
+                            <li @click="close">
                                 <router-link to="./order">
                                     <span>스마트오더 주문내역</span>
                                     <box-icon name='chevron-right' color="#7d7d7d"></box-icon>
                                 </router-link>
                             </li>
-                            <li v-on:click="ing">
-                                <router-link to="/">
+                            <li @click="close">
+                                <router-link to="./directions">
                                     <span>주변매장 찾기</span>
                                     <box-icon name='chevron-right' color="#7d7d7d"></box-icon>
                                 </router-link>
@@ -87,7 +87,7 @@ export default {
             point : { stamp : 0, coupon : 0,},
             on : false,
             s_count : 0,
-            c_count : 0
+            c_count : 0,
         }
     },
     methods : {
@@ -106,7 +106,8 @@ export default {
         ing() {
             alert('준비중입니다.');
             return false
-        }
+        },
+        
     },
 }
 </script>
@@ -140,7 +141,8 @@ export default {
                     .c_txt > p, .c_txt > p > span {font-size: .8rem;}
                     .c_txt > p > span {font-weight: bold;}
 
-                .m_list > ul > li > a {display: flex; justify-content: space-between; align-items: center; padding:12px; border-bottom: 1px solid #e8e8e8;}
+                .m_list > ul > li {padding:12px;  border-bottom: 1px solid #e8e8e8;}
+                .m_list > ul > li > a {display: flex; justify-content: space-between; align-items: center;}
                 .m_list > ul > li > a > span {font-size: .9rem;}
                 .m_list > button {display: block; width: 60%; padding: 8px; background-color: #003da7; color: #fff; text-align: center; margin:12px auto; border-radius: 18px; border: none;}
 

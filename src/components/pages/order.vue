@@ -8,7 +8,7 @@
             <box-icon name='search' color="#071F60"></box-icon>
         </div>
         <ul class="autocomplete disabled">
-            <li v-for="(res, index) of result" v-bind:key="index" v-on:click="s_result(idx)" v-on:keyup.enter="s_result(idx)">{{ res }}</li>
+            <li v-for="(res, index) of result" v-bind:key="index" v-on:click="selected(idx, index)" v-on:keyup.enter="selected(idx)">{{ res }}</li>
         </ul>
         <div class="tabs">
             <ul>
@@ -416,7 +416,7 @@ export default {
     },
     created() {
         const t_name  = [];
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 4; i++) { 
             const t_depth_01 = this.category[i]
             for (let j = 0; j < 12; j++) {
                 const t_depth_02 = t_depth_01.menu[j].name
@@ -424,9 +424,7 @@ export default {
             }
         }
         this.t_name = t_name
-        setTimeout (()=>{
-            this.loading = !this.loading
-        },1000);
+        setTimeout (()=>{this.loading = !this.loading},1000);
     }
 }
 </script>

@@ -51,7 +51,7 @@
                 </li>
             </ul>
             <ul class="tbody order_history" v-for="(t_cart, index) of receiveData" v-bind:key="index">
-                <li> {{t_cart.l_menu}} </li>
+                <li> {{t_cart.l_name}} </li>
                 <li>
                     <ul class="order_history">
                         <li>{{t_cart.l_price.toLocaleString('ko-KR')}}원</li>

@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router';
-import { mainPage, orderPage, confirmPage } from './components/pages'
+import { mainPage, orderPage, confirmPage, directionsPage } from './components/pages'
 
 export const eventBus = new Vue()
 
@@ -20,10 +20,13 @@ const routes = [
     component: orderPage
   },
   {
-
     path : '/confirm',
     component: confirmPage
   },
+  {
+    path : '/directions',
+    component: directionsPage
+  }
 ]
 
 const router = new VueRouter({
