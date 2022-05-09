@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router';
 import { mainPage, orderPage, confirmPage, directionsPage } from './components/pages'
+import './registerServiceWorker'
 
 export const eventBus = new Vue()
 
