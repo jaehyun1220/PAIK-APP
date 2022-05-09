@@ -5,8 +5,8 @@
         </div>
         <div class="k_map">
             <div class="button-group">
-                <button class="first" v-on:click="displayMarker(markerPositions2)">매장찾기</button>
-                <button class="second">홈으로</button>
+                <button class="first" v-on:click="findLocation()">매장찾기</button>
+                <button class="second" v-on:click="currentLocation()">현위치</button>
             </div>
             <div class="kakaomap">
                 <div id="map"></div>
@@ -25,21 +25,59 @@ export default {
     data () {
         return {
             loading : true,
-            markerPositions2: [37.504339476734586, 127.02309989187425],
+            map: null,
             markers: [],
-            infowindow: null,
+            latitude: 0,
+            longitude: 0
         }
     },
+    created() {
+        this.currentLocation();
+    },
+    mounted() {
+        setTimeout (()=>{this.loading = !this.loading},1000);
+    },
     methods: {
-        initMap() {
-        const container = document.getElementById("map");
-        const options = {
-            center: new kakao.maps.LatLng(33.450701, 126.570667),
-            level: 5,
-        };
-        this.map = new kakao.maps.Map(container, options);
+        findLocation() {
+            let moveLatLon = new kakao.maps.LatLng(37.504339476734586, 127.02309989187425);
+            this.map.setCenter(moveLatLon);
+            this.displayMarker([[37.504339476734586, 127.02309989187425]]);
         },
-        
+        currentLocation() {
+            
+            if (!("geolocation" in navigator)) {
+                return;
+            }
+
+            // get position
+            navigator.geolocation.getCurrentPosition(pos => {
+            this.latitude = pos.coords.latitude;
+            this.longitude = pos.coords.longitude;
+
+            if (window.kakao && window.kakao.maps) {
+
+                this.initMap();
+
+            } else {
+                const script = document.createElement("script");
+                script.onload = () => kakao.maps.load(this.initMap);
+                script.src = "//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=6ab71ef76e77aabf7f02913b7bc13b78";
+                document.head.appendChild(script);
+            }
+
+            }, err => {
+                alert(err.message);
+            })
+        },
+        initMap() {
+            const container = document.getElementById("map");
+            const options = {
+                center: new kakao.maps.LatLng(33.450701, 126.570667),
+                level: 5,
+            };
+            this.map = new kakao.maps.Map(container, options);
+            this.displayMarker([[this.latitude, this.longitude]]);
+        },
         displayMarker(markerPositions) {
             if (this.markers.length > 0) {
                 this.markers.forEach((marker) => marker.setMap(null));
@@ -66,19 +104,7 @@ export default {
                 this.map.setBounds(bounds);
             }
         },
-    },
-    mounted() {
-        if (window.kakao && window.kakao.maps) {
-            this.initMap();
-        } else {
-            const script = document.createElement('script');
-            script.onload = () => kakao.maps.load(this.initMap);
-            script.src =
-            'http://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=6ab71ef76e77aabf7f02913b7bc13b78';
-            document.head.appendChild(script);
-        }
-        setTimeout (()=>{this.loading = !this.loading},1000);
-    },
+    }
 }
 </script>
 

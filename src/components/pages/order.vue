@@ -4,10 +4,10 @@
             <BounceLoader :loading="loading"></BounceLoader>
         </div>
         <div class="search">
-            <input type="text" autofocus placeholder="메뉴를 검색하세요." v-model="s_input" @input="submitAutoComplete">
+            <input type="text" placeholder="메뉴를 검색하세요." v-model="s_input" @input="submitAutoComplete">
             <box-icon name='search' color="#071F60"></box-icon>
         </div>
-        <ul class="autocomplete disabled">
+        <ul class="s_list" v-show="s_list">
             <li v-for="(res, index) of result" v-bind:key="index" v-on:click="selected(idx, index)" v-on:keyup.enter="selected(idx)">{{ res }}</li>
         </ul>
         <div class="tabs">
@@ -99,19 +99,20 @@ export default {
             idx : 0,
             loading : true,
             isActive: false,
+            result: null,
             a_modal:false,
             o_modal:false,
-            s_input: null,
-            result: null,
             t_num : 0, 
             t_price : 0,
             t_name : null,
             it_price : 0,
+            s_input: null,
             s_image : '',
             s_menu : [],
             s_name : [],
             s_price : 0,
             s_num :0,
+            s_list :false,
             o_cart : [],
             category : [
                 {
@@ -394,15 +395,14 @@ export default {
             eventBus.$emit('sendData', t_cart)
         },
         submitAutoComplete() {
-            const autocomplete = document.querySelector(".autocomplete");
-            if (this.s_input) {
-                autocomplete.classList.remove("disabled");
+            if (this.s_input == null || this.s_input == '') {
+                this.s_list = false
+            } else {
+                this.s_list = true
                 this.result = this.t_name.filter((filter) => {
                 return filter.match(new RegExp(this.s_input, "i"));
                 });
-                console.log(this.result)
-            } else {
-                autocomplete.classList.add("disabled");
+                //console.log(this.result)
             }
         },
         s_result(idx) {
@@ -437,9 +437,8 @@ export default {
             input[type="text"] {border:none; width: 100%;}
             input[type="text"]::placeholder {font-size: .95rem;}
 
-        .autocomplete { background-color: #fff; box-shadow: 0px 5px 15px rgba(0, 0, 0, .2); max-height: 130px; overflow-y: scroll; border-radius: 5px; position: absolute; width: 100%; left: 0; top: 115px;}
-        .autocomplete > li {margin: 5px 0; padding: 7px; box-sizing: border-box; font-size: .85rem;}
-        .autocomplete.disabled {display: none;}
+            .s_list { background-color: #fff; box-shadow: 0px 5px 15px rgba(0, 0, 0, .2); max-height: 130px; overflow-y: scroll; border-radius: 5px; position: absolute; width: 100%; left: 0; top: 115px;}
+            .s_list > li {margin: 5px 0; padding: 7px; box-sizing: border-box; font-size: .85rem;}
 
         .tabs { overflow-x: auto; border-top: 1px solid #ececec; border-bottom: 1px solid #ececec; background-color: #fff; margin-bottom: 7px; box-shadow: 0px 5px 10px rgba(0, 0, 0, .1);}
         .tabs > ul {display: flex; justify-content: space-around; align-items: center;  width: 100%; padding:5px 0;}
